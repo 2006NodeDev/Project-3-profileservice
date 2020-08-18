@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+
 import * as dotenv from "dotenv";
 dotenv.config({ path: __dirname + "/.env" });
 
@@ -10,3 +11,4 @@ export const connectionPool: Pool = new Pool({
   port: 5432, // standard db port
   max: 5, // max # connections
 });
+
