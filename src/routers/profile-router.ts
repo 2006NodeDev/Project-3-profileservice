@@ -40,8 +40,7 @@ profileRouter.get("/:auth0Id", async (req:Request, res:Response, next:NextFuncti
 //update profile
 
 //authorizationMiddleware has not been created and may not be necessary
-
-profileRouter.patch('/', authorizationMiddleware(['admin', 'user']), async (req:Request, res:Response, next:NextFunction)=>{
+profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
     
     let{
         auth0Id, 
