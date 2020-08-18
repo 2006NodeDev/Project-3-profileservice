@@ -41,7 +41,7 @@ profileRouter.get("/:auth0Id", async (req:Request, res:Response, next:NextFuncti
 
 //authorizationMiddleware has not been created and may not be necessary
 
-profileRouter.patch('/', authorizationMiddleware(['admin', 'user']), async (req:Request, res:Response, next:NextFunction)=>{
+profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
     
     let{
         auth0Id, 
@@ -102,9 +102,7 @@ profileRouter.patch('/', authorizationMiddleware(['admin', 'user']), async (req:
   }
 );
 
-profileRouter.post(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body); //lets look at what the request body looks like
     let {
       auth0Id,

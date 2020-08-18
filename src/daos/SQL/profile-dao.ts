@@ -152,7 +152,7 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     }
     await client.query("COMMIT;"); //ends the transaction
     //below is just a placeholder, will edit when get profile is done
-    return getProfile(updatedProfile.auth0Id);
+    return getProfileById(updatedProfile.auth0Id);
   } catch (error) {
     client && client.query("ROLLBACK;"); //does not save if doesn't work
     //placeholder until similar error is figured out

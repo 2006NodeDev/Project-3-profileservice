@@ -2,9 +2,10 @@
   "name": "project-3-profileservice",
   "version": "1.0.0",
   "description": "project-3",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -17,21 +18,17 @@
   },
   "homepage": "https://github.com/2006NodeDev/Project-3-profileservice#readme",
   "dependencies": {
-
-      "pg": "^8.3.2",
+    "pg": "^8.3.2",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    
-    
+    "express": "^4.17.1"
   },
-
   "devDependencies": {
-     "@types/node": "^14.6.0",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.7",
+    "@types/node": "^14.6.0",
     "@types/pg": "^7.14.4",
+    "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
-
   }
 }
