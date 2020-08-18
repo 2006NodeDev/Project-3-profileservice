@@ -1,12 +1,36 @@
+import { getAllProfilesService, getProfileByIdService, UpdateProfileService } from '../services/profile-service'
 import express, { Request, Response, NextFunction } from 'express'
 import { Profile } from "../models/Profile"
-import { UpdateProfileService } from '../services/profile-service'
 
-export let profileRouter = express.Router();
+export const profileRouter = express.Router()
+
+//no middleware set up yet
+
+//get all profiles
+profileRouter.get("/", async (req:Request, res: Response, next: NextFunction)=>{
+    try {
+        let allProfiles = await getAllProfilesService()
+        res.json(allProfiles)
+    } catch (e) {
+        next(e)
+    }
+})
+
+//get profiles based on auth0Id
+profileRouter.get("/:auth0Id", async (req:Request, res:Response, next:NextFunction)=>{
+    let {auth0Id} = req.params 
+    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+    try {
+        let profile = await getProfileByIdService(auth0Id)
+        res.json(profile)
+    } catch (e) {
+        next(e)
+    }
+})
 
 //update profile
 
-//router hadn't been declared in index yet, authorizationMiddleware has not been created and may not be necessary
+//authorizationMiddleware has not been created and may not be necessary
 profileRouter.patch('/', authorizationMiddleware(['admin', 'user']), async (req:Request, res:Response, next:NextFunction)=>{
     
     let{
