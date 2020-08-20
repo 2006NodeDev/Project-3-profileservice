@@ -1,4 +1,3 @@
-
 import { Profile } from "../models/Profile";
 import {
   getAllProfiles,

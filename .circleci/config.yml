@@ -26,8 +26,8 @@ jobs:
             npm run build
       - slack/status:
           mentions: 'CHANNEL'
-          success_message: 'Code in Project-3-profile-service STAGING is Ready for you to pull'
-          failure_message: 'You should probably tell Tanique that the code in Project-3-profile-service STAGING failed'
+          success_message: 'Code in Project-3-profile-service MASTER is ready for you to pull'
+          failure_message: 'You should probably tell Tanique that the code in Project-3-profile-service MASTER failed'
 workflows:
     build-and-test:
       jobs:

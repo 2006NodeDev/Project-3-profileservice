@@ -33,7 +33,6 @@ export async function getAllProfiles(): Promise<Profile[]> {
 
 //find profiles by id
 export async function getProfileById(auth0Id: string): Promise<Profile> {
-
   let client: PoolClient
   try {
     client = await connectionPool.connect()
@@ -173,3 +172,4 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     client && client.release();
   }
 }
+
