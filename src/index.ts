@@ -1,8 +1,13 @@
-import express from "express"
+import express from 'express'
 import { profileRouter } from "./routers/profile-router"
+import { corsFilter } from "./middleware/cors-filter"
 
 const app = express() 
 //our application from express
+
+app.use(express.json())
+
+app.use(corsFilter)
 
 app.use("/profiles", profileRouter)
 
@@ -20,3 +25,4 @@ app.use((err, req, res, next) => {
 app.listen(2007, () => { //start server on port 2007
     console.log("Server has started");
 })
+
