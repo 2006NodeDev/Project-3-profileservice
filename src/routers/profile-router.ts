@@ -1,4 +1,3 @@
-
 import {
   getAllProfilesService,
   getProfileByIdService,
@@ -10,60 +9,65 @@ import { Profile } from "../models/Profile";
 
 export const profileRouter = express.Router();
 
-
 //no middleware set up yet
 
 //get all profiles
 
-profileRouter.get("/", async (req:Request, res: Response, next: NextFunction)=>{
+profileRouter.get(
+  "/",
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let allProfiles = await getAllProfilesService()
-        res.json(allProfiles)
+      let allProfiles = await getAllProfilesService();
+      res.json(allProfiles);
     } catch (e) {
-        next(e)
+      next(e);
     }
-})
+  }
+);
 
 //get profiles based on auth0Id
-profileRouter.get("/:auth0Id", async (req:Request, res:Response, next:NextFunction)=>{
-    let {auth0Id} = req.params 
+profileRouter.get(
+  "/:auth0Id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { auth0Id } = req.params;
     //since text, idk what to test for to ensure input accuracy (can't use NaN)
     try {
-        let profile = await getProfileByIdService(auth0Id)
-        res.json(profile)
+      let profile = await getProfileByIdService(auth0Id);
+      res.json(profile);
     } catch (e) {
-        next(e)
+      next(e);
     }
-})
-
+  }
+);
 
 //update profile
 
 //authorizationMiddleware has not been created and may not be necessary
-profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
-    
-    let{
-        auth0Id, 
-        caliberId,
-        batchId,
-        nickname,
-        pronouns,
-        hobbies,
-        favFoods,
-        specialTrait,
-        degree,
-        favLangauge,
-        relevantSkills,
-        introvert,
-        studyGroup
-    } = req.body
+profileRouter.patch(
+  "/:auth0Id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { auth0Id } = req.params;
+    // let profile = await getProfileByIdService(auth0Id);
 
+    let {
+      caliberId,
+      batchId,
+      nickname,
+      pronouns,
+      hobbies,
+      favFoods,
+      specialTrait,
+      degree,
+      favLangauge,
+      relevantSkills,
+      introvert,
+      studyGroup,
+    } = req.body;
 
     //this is where authorization code would go- ensure userId matches or role matches
     //Not sure how we want to handle it so it's blank for now
 
     let updatedProfile: Profile = {
-
       auth0Id,
       caliberId,
       batchId,
@@ -94,9 +98,10 @@ profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
     console.log(updatedProfile);
     try {
       let results = await UpdateProfileService(updatedProfile);
+      console.log("we have updated profile now to insert in db");
       res.json(results);
     } catch (e) {
-      next(e);
+      console.log(e);
     }
   }
 );
@@ -120,7 +125,7 @@ profileRouter.post(
       introvert,
       studyGroup,
     } = req.body;
-    
+
     let createProfile: Profile = {
       auth0Id,
       caliberId,
@@ -136,7 +141,6 @@ profileRouter.post(
       introvert,
       studyGroup,
     };
-   
 
     createProfile.nickname = nickname;
     createProfile.hobbies = hobbies;
@@ -156,4 +160,3 @@ profileRouter.post(
     }
   }
 );
-
