@@ -44,7 +44,7 @@ profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
     
     let{
         auth0Id, 
-        caliberId,
+        email,
         batchId,
         nickname,
         pronouns,
@@ -65,7 +65,7 @@ profileRouter.patch('/', async (req:Request, res:Response, next:NextFunction)=>{
     let updatedProfile: Profile = {
 
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,
@@ -105,7 +105,7 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     console.log(req.body); //lets look at what the request body looks like
     let {
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,
@@ -121,7 +121,7 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     
     let createProfile: Profile = {
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,

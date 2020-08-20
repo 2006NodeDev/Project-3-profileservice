@@ -5,7 +5,7 @@ export function profileDTOtoProfileConverter(dto:ProfileDTO):Profile{
 
     return {
         auth0Id: dto.auth0_user_id,
-        caliberId: dto.caliber_user_id,
+        email: dto.email,
         batchId: dto.batch_id,
         nickname: dto.nickname,
         pronouns: dto.pronouns,
