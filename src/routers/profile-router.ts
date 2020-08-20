@@ -43,33 +43,32 @@ profileRouter.get(
 //update profile
 
 //authorizationMiddleware has not been created and may not be necessary
-profileRouter.patch(
-  "/:auth0Id",
-  async (req: Request, res: Response, next: NextFunction) => {
-    let { auth0Id } = req.params;
-    // let profile = await getProfileByIdService(auth0Id);
+profileRouter.patch('/:auth0Id', async (req:Request, res:Response, next:NextFunction)=>{
+    let {auth0Id} = req.params
+    let{
+        
+        email,
+        batchId,
+        nickname,
+        pronouns,
+        hobbies,
+        favFoods,
+        specialTrait,
+        degree,
+        favLangauge,
+        relevantSkills,
+        introvert,
+        studyGroup
+    } = req.body
 
-    let {
-      caliberId,
-      batchId,
-      nickname,
-      pronouns,
-      hobbies,
-      favFoods,
-      specialTrait,
-      degree,
-      favLangauge,
-      relevantSkills,
-      introvert,
-      studyGroup,
-    } = req.body;
+
 
     //this is where authorization code would go- ensure userId matches or role matches
     //Not sure how we want to handle it so it's blank for now
 
     let updatedProfile: Profile = {
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,
@@ -106,13 +105,11 @@ profileRouter.patch(
   }
 );
 
-profileRouter.post(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.body); //lets look at what the request body looks like
     let {
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,
@@ -128,7 +125,7 @@ profileRouter.post(
 
     let createProfile: Profile = {
       auth0Id,
-      caliberId,
+      email,
       batchId,
       nickname,
       pronouns,

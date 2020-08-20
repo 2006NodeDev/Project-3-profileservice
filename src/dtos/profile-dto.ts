@@ -1,6 +1,6 @@
 export class ProfileDTO {
 	auth0_user_id: string
-	caliber_user_id: string 
+	email: string 
 	batch_id: string  
 	nickname: string 
 	pronouns: string 

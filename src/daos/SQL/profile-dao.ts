@@ -6,7 +6,10 @@ import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
 //import { logger, errorLogger } from "../../utils/logger";
 
-const schema = process.env["P3_SCHEMA"] || "project_3_profile_service";
+const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
+
+
+
 
 //get all profiles
 export async function getAllProfiles(): Promise<Profile[]> {
@@ -33,28 +36,27 @@ export async function getAllProfiles(): Promise<Profile[]> {
 
 //find profiles by id
 export async function getProfileById(auth0Id: string): Promise<Profile> {
-  let client: PoolClient;
+
+  let client: PoolClient
   try {
-    client = await connectionPool.connect();
-    let results: QueryResult = await client.query(
-      `select * from ${schema}.profiles p 
-                                                    where p.auth0_user_id = $1;`,
-      [auth0Id]
-    );
+    client = await connectionPool.connect()
+    let results: QueryResult = await client.query(`select * from ${schema}.profiles p 
+                                                    where p.auth0_user_id = $1;`, [auth0Id])
     if (results.rowCount === 0) {
-      throw new Error("NotFound");
+      throw new Error('NotFound')
     } else {
-      return profileDTOtoProfileConverter(results.rows[0]);
+      return profileDTOtoProfileConverter(results.rows[0])
     }
   } catch (e) {
     if (e.message === "NotFound") {
-      throw new ProfileNotFoundError();
+      throw new ProfileNotFoundError
     }
     console.log(e);
-    throw new Error("This error can't be handled");
+    throw new Error("This error can't be handled")
   } finally {
-    client && client.release();
+    client && client.release()
   }
+
 }
 
 //import { logger, errorLogger } from "../../utils/logger";
@@ -64,14 +66,15 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
   let client: PoolClient;
   try {
     client = await connectionPool.connect();
+    await client.query("BEGIN;");
 
     let results = await client.query(
-      `insert into project_3_profile_service.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
+      `insert into ${schema}.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
                               values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
                               returning *`,
       [
         newProfile.auth0Id,
-        newProfile.caliberId,
+        newProfile.email,
         newProfile.batchId,
         newProfile.nickname,
         newProfile.pronouns,
@@ -85,10 +88,16 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
         newProfile.studyGroup,
       ]
     );
-
-    return createProfile(results.rows[0]);
+    await client.query("COMMIT;");
+    if (results.rowCount === 0) {
+      throw new Error('Not Submitted')
+    } else {
+      return newProfile
+    }
   } catch (error) {
+    client && client.query("ROLLBACK;");
     console.log(error);
+    throw new ProfileNotFoundError()
   } finally {
     client?.release();
   }

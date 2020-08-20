@@ -3,7 +3,7 @@ set schema 'project_3_profile_service';
 
 create table profiles (
 	"auth0_user_id" text primary key,
-	"caliber_user_id" text not null unique,
+	"email" text not null unique,
 	"batch_id" text not null, 
 	"nickname" text, 
 	"pronouns" text, 
