@@ -67,7 +67,7 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     await client.query("BEGIN;");
 
     let results = await client.query(
-      `insert into project_3_profile_service.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
+      `insert into ${schema}.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
                               values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
                               returning *`,
       [
@@ -108,52 +108,52 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     await client.query("BEGIN;"); //begins the transaction
     //left off the userId aspect of it for now, not sure how that is going to work
     if (updatedProfile.nickname) {
-      await client.query(`update ${schema}.profile set nickname = $1`, [
+      await client.query(`update ${schema}.profiles set nickname = $1`, [
         updatedProfile.nickname,
       ]);
     }
     if (updatedProfile.pronouns) {
-      await client.query(`update ${schema}.profile set pronouns = $1`, [
+      await client.query(`update ${schema}.profiles set pronouns = $1`, [
         updatedProfile.pronouns,
       ]);
     }
     if (updatedProfile.hobbies) {
-      await client.query(`update ${schema}.profile set hobbies = $1`, [
+      await client.query(`update ${schema}.profiles set hobbies = $1`, [
         updatedProfile.hobbies,
       ]);
     }
     if (updatedProfile.favFoods) {
-      await client.query(`update ${schema}.profile set favFoods = $1`, [
+      await client.query(`update ${schema}.profiles set favFoods = $1`, [
         updatedProfile.favFoods,
       ]);
     }
     if (updatedProfile.specialTrait) {
-      await client.query(`update ${schema}.profile set specialTrait = $1`, [
+      await client.query(`update ${schema}.profiles set specialTrait = $1`, [
         updatedProfile.specialTrait,
       ]);
     }
     if (updatedProfile.degree) {
-      await client.query(`update ${schema}.profile set degree = $1`, [
+      await client.query(`update ${schema}.profiles set degree = $1`, [
         updatedProfile.degree,
       ]);
     }
     if (updatedProfile.favLangauge) {
-      await client.query(`update ${schema}.profile set favLangauge = $1`, [
+      await client.query(`update ${schema}.profiles set favLangauge = $1`, [
         updatedProfile.favLangauge,
       ]);
     }
     if (updatedProfile.relevantSkills) {
-      await client.query(`update ${schema}.profile set relevantSkills = $1`, [
+      await client.query(`update ${schema}.profiles set relevantSkills = $1`, [
         updatedProfile.relevantSkills,
       ]);
     }
     if (updatedProfile.introvert) {
-      await client.query(`update ${schema}.profile set introvert = $1`, [
+      await client.query(`update ${schema}.profiles set introvert = $1`, [
         updatedProfile.introvert,
       ]);
     }
     if (updatedProfile.studyGroup) {
-      await client.query(`update ${schema}.profile set studyGroup = $1`, [
+      await client.query(`update ${schema}.profiles set studyGroup = $1`, [
         updatedProfile.studyGroup,
       ]);
     }
