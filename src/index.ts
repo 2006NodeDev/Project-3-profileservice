@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { profileRouter } from "./routers/profile-router"
 import { corsFilter } from "./middleware/cors-filter"
 
@@ -10,6 +10,12 @@ app.use(express.json())
 app.use(corsFilter)
 
 app.use("/profiles", profileRouter)
+
+
+//health check! for load balancer and build
+app.get('/health', (req: Request, res: Response) => {
+    res.sendStatus(200)
+})
 
 app.use((err, req, res, next) => {  
     if (err.statusCode) { 

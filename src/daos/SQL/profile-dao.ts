@@ -67,12 +67,16 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     await client.query("BEGIN;");
 
     let results = await client.query(
+<<<<<<< HEAD
       `insert into ${schema}.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
+=======
+      `insert into project_3_profile_service.profiles("auth0_user_id", "email", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
+>>>>>>> 7f94b79dd7668f36d53d29bfbee20de3744d4419
                               values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
                               returning *`,
       [
         newProfile.auth0Id,
-        newProfile.caliberId,
+        newProfile.email,
         newProfile.batchId,
         newProfile.nickname,
         newProfile.pronouns,
