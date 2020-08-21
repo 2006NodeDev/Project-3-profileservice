@@ -1,0 +1,39 @@
+steps:
+# This step runs the unit tests on the app
+  - name: 'node'
+    id: Install
+    entrypoint: /bin/bash
+    args:
+    - -c
+    - | 
+      npm install
+  - name: 'node'
+    id: Test
+    entrypoint: /bin/bash
+    args:
+    - -c
+    - |
+      npm test
+  - name: 'node'
+    id: Build
+    entrypoint: /bin/bash
+    args:
+    - -c
+    - | 
+      npm run build
+# This step builds the container image.
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build Image
+    entrypoint: /bin/bash
+    args:
+    - -c
+    - |
+      docker build -t gcr.io/$PROJECT_ID/profile-service:$SHORT_SHA .
+# This step pushes the image to Container Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push
+    args:
+    - 'push'
+    - 'gcr.io/$PROJECT_ID/profile-service:$SHORT_SHA'
