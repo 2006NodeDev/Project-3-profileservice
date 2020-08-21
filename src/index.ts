@@ -1,9 +1,13 @@
 import express, { Request, Response } from 'express'
+import bodyParser from "body-parser"
 import { profileRouter } from "./routers/profile-router"
 import { corsFilter } from "./middleware/cors-filter"
 
 const app = express() 
 //our application from express
+app.use(bodyParser.json());
+// app.use(cors());
+app.use("/profiles", profileRouter);
 
 app.use(express.json())
 
@@ -27,7 +31,7 @@ app.use((err, req, res, next) => {
 })
 
 //what port do we want?
-app.listen(2008, () => { //start server on port 2007
-    console.log("Server has started");
-})
-
+app.listen(2007, () => {
+  //start server on port 2007
+  console.log("Server has started");
+});
