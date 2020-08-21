@@ -69,7 +69,7 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     await client.query("BEGIN;");
 
     let results = await client.query(
-      `insert into ${schema}.profiles("auth0_user_id", "caliber_user_id", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_languages", "relevant_skills", "introvert", "study_group")
+      `insert into ${schema}.profiles("auth0_user_id", "email", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
                               values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
                               returning *`,
       [
@@ -111,63 +111,69 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     client = await connectionPool.connect();
     await client.query("BEGIN;"); //begins the transaction
     //left off the userId aspect of it for now, not sure how that is going to work
+    if (updatedProfile.email) {
+      await client.query(
+        `update ${schema}.profiles set "email" = $1 where "auth0_user_id" = $2;`,
+        [updatedProfile.email, updatedProfile.auth0Id]
+      );
+    }
     if (updatedProfile.nickname) {
       await client.query(
-        `update ${schema}.profiles set nickname = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "nickname" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.nickname, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.pronouns) {
       await client.query(
-        `update ${schema}.profiles set pronouns = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "pronouns" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.pronouns, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.hobbies) {
       await client.query(
-        `update ${schema}.profiles set hobbies = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "hobbies" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.hobbies, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.favFoods) {
       await client.query(
-        `update ${schema}.profiles set favFoods = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "fav_foods" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.favFoods, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.specialTrait) {
       await client.query(
-        `update ${schema}.profiles set specialTrait = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "special_trait" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.specialTrait, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.degree) {
       await client.query(
-        `update ${schema}.profiles set degree = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "degree" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.degree, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.favLangauge) {
       await client.query(
-        `update ${schema}.profiles set favLangauge = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "fav_language" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.favLangauge, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.relevantSkills) {
       await client.query(
-        `update ${schema}.profiles set relevantSkills = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "relevant_skills" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.relevantSkills, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.introvert) {
       await client.query(
-        `update ${schema}.profiles set introvert = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "introvert" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.introvert, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.studyGroup) {
       await client.query(
-        `update ${schema}.profiles set studyGroup = $1 where auth0_user_id = $2;`,
+        `update ${schema}.profiles set "study_group" = $1 where "auth0_user_id" = $2;`,
         [updatedProfile.studyGroup, updatedProfile.auth0Id]
       );
     }
@@ -178,10 +184,9 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
   } catch (error) {
     client && client.query("ROLLBACK;"); //does not save if doesn't work
     //placeholder until similar error is figured out
-    if (error.message === "Role not found") {
-      //   throw new Error("Role not found");
-      console.log(error.message);
-    }
+
+    throw new ProfileNotFoundError();
+
     //logger.error(error);
     //errorLogger.error(error)
     // throw new Error("Unhandled Error");
