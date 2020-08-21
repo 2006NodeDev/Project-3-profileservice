@@ -22,6 +22,7 @@
     "node_modules",
     "build",
     "scripts",
+    "coverage",
     "styleguide.config.js",
     "docs",
     "acceptance-tests",
