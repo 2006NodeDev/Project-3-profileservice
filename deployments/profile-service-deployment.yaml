@@ -24,13 +24,21 @@ spec:
           image: gcr.io/alec-2006nodedev/profile-service:COMMIT_SHA
           imagePullPolicy: Always
           env:
-            - name: AUTH0_CLIENT_ID
-              value: "Die6w2itO0GPZd5EDJy8sVCeeoNMVV7U"
-            - name: AUTH0_CLIENT_SECRET
+            - name: PG_HOST
+              value: "10.47.249.252"
+            - name: PG_USER
+              value: "postgres"
+            - name: PG_DATABASE
+              value: "postgres"
+            - name: BASE_PATH
+              value: "/profile-service"
+            - name: USER_SERVICE_HOST
+              value: "http://user-service-service:2006/profile-service"
+            - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: secrets
-                  key: authPassword
+                  key: password
           ports:
             - containerPort: 2007
           livenessProbe:

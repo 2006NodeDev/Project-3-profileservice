@@ -2,20 +2,13 @@
   "name": "project-3-profileservice",
   "version": "1.0.0",
   "description": "project-3",
-<<<<<<< HEAD
-  "main": "index.ts",
-  "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install && tsc && npm prune --production && cp ./package.json ./build",
-=======
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec ts-node src/index.ts",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "npm install && tsc && npm prune --production && cp ./package.json ./build",
     "build:clean": "rm -rf ./build && npm install && tsc && npm prune --production && cp ./package.json ./build",
->>>>>>> a49f5c593945e31631185878d8bcd28aac52d813
     "deploy": "node dist/index.js"
   },
   "repository": {
@@ -29,24 +22,35 @@
   },
   "homepage": "https://github.com/2006NodeDev/Project-3-profileservice#readme",
   "dependencies": {
-<<<<<<< HEAD
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "pg": "^8.3.2"
-=======
-    "pg": "^8.3.2",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1"
->>>>>>> a49f5c593945e31631185878d8bcd28aac52d813
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.7",
+    "@types/jest": "^26.0.10",
     "@types/node": "^14.6.0",
     "@types/pg": "^7.14.4",
+    "jest": "^26.4.1",
     "nodemon": "^2.0.4",
+    "ts-jest": "^26.2.0",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
+  }, 
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
