@@ -23,7 +23,10 @@ export async function getAllProfiles(): Promise<Profile[]> {
       `select * from ${schema}.profiles p;`
     );
     //return results
-    return results.rows.map(profileDTOtoProfileConverter);
+    // return results.rows.map(profileDTOtoProfileConverter);
+    return Promise.all(results.rows.map(profileDTOtoProfileConverter))
+
+
   } catch (e) {
     //if we get an error we don't know
     console.log(e);

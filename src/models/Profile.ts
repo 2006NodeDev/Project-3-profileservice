@@ -1,5 +1,7 @@
 export class Profile {
     auth0Id:string;
+    firstName:string;
+    lastName:string;
     email: string;
     batchId: string;
     nickname: string;

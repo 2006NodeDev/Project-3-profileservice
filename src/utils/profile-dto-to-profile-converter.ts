@@ -1,10 +1,16 @@
 import { ProfileDTO } from "../dtos/profile-dto";
 import { Profile } from "../models/Profile";
+import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
+import { Associate } from "../models/Associate";
 
-export function profileDTOtoProfileConverter(dto:ProfileDTO):Profile{
+export async function profileDTOtoProfileConverter(dto:ProfileDTO):Promise<Profile>{
+    let assoc:Associate = await userServiceGetUserByEmail(dto.email)
+
 
     return {
         auth0Id: dto.auth0_user_id,
+        firstName: assoc.firstName,
+        lastName:assoc.lastName,
         email: dto.email,
         batchId: dto.batch_id,
         nickname: dto.nickname,
