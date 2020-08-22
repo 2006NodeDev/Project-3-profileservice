@@ -7,13 +7,13 @@ steps:
         - -c
         - |
           npm install
-  #   - name: "node"
-  #     id: Test
-  #     entrypoint: /bin/bash
-  #     args:
-  #       - -c
-  #       - |
-  #         npm test
+    - name: "node"
+      id: Test
+      entrypoint: /bin/bash
+      args:
+        - -c
+        - |
+          npm test
     - name: "node"
       id: Build
       entrypoint: /bin/bash
