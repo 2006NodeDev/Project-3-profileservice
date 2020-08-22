@@ -3,9 +3,12 @@ import {
   getProfileByIdService,
   UpdateProfileService,
   CreateProfileService,
+  getProfileBySkillNameService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
+//import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
+//import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 
 export const profileRouter = express.Router();
 
@@ -13,9 +16,7 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.get("/",  async (req: Request, res: Response, next: NextFunction) => {
     try {
       let allProfiles = await getAllProfilesService();
       res.json(allProfiles);
@@ -164,3 +165,43 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     }
   }
 );
+
+/*
+profileRouter.get("/email/:email",  async (req: Request, res: Response, next: NextFunction) => {
+    let { email } = req.params;
+    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+    try {
+      let associate = await userServiceGetUserByEmail(email);
+     
+      res.json(associate);
+
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
+/*
+ for (var i in batchList){
+        getAssocInBatch = getAssocInBatch.concat(await getAssociatesByBatchId(batchList[i].batchId))
+    }
+*/
+
+
+
+profileRouter.get('/skill/:skillname', async (req:any, res:Response, next:NextFunction) => {
+  let skill = req.params.skillname
+  console.log(skill)
+  try{
+      let associate = await getProfileBySkillNameService(skill)
+    //   let profileBySkill :Profile[]
+    //   for (var i in associate){
+    //     profileBySkill = profileBySkill.concat(await associatetoProfileDTOConverter(associate[i]))
+    // }
+
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+//associatetoProfileDTOConverter
