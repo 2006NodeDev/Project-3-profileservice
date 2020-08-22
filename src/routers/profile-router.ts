@@ -6,6 +6,7 @@ import {
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
+import { logger, errorLogger } from "../utils/loggers";
 
 export const profileRouter = express.Router();
 
@@ -19,7 +20,9 @@ profileRouter.get(
     try {
       let allProfiles = await getAllProfilesService();
       res.json(allProfiles);
+      logger.debug(allProfiles)
     } catch (e) {
+      errorLogger.error(e);
       next(e);
     }
   }
@@ -34,7 +37,9 @@ profileRouter.get(
     try {
       let profile = await getProfileByIdService(auth0Id);
       res.json(profile);
+      logger.debug(profile)
     } catch (e) {
+      errorLogger.error(e);
       next(e);
     }
   }
@@ -62,8 +67,6 @@ profileRouter.patch('/:auth0Id', async (req:Request, res:Response, next:NextFunc
         studyGroup
     } = req.body
 
-
-
     //this is where authorization code would go- ensure userId matches or role matches
     //Not sure how we want to handle it so it's blank for now
 
@@ -84,7 +87,6 @@ profileRouter.patch('/:auth0Id', async (req:Request, res:Response, next:NextFunc
       introvert,
       studyGroup,
     };
-
     //update with new info or remain the same
     updatedProfile.nickname = nickname || undefined;
     updatedProfile.pronouns = pronouns || undefined;
@@ -96,14 +98,16 @@ profileRouter.patch('/:auth0Id', async (req:Request, res:Response, next:NextFunc
     updatedProfile.relevantSkills = relevantSkills || undefined;
     updatedProfile.introvert = introvert || undefined;
     updatedProfile.studyGroup = studyGroup || undefined;
+    
+    logger.debug(updatedProfile);
 
-    console.log(updatedProfile);
     try {
       let results = await UpdateProfileService(updatedProfile);
-      console.log("we have updated profile now to insert in db");
+      logger.info("We have updated profile now to insert in db");
       res.json(results);
     } catch (e) {
-      console.log(e);
+      errorLogger.error(e);
+      next(e)
     }
   }
 );
@@ -155,11 +159,15 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     createProfile.relevantSkills = relevantSkills;
     createProfile.introvert = introvert;
     createProfile.studyGroup = studyGroup;
-    console.log(createProfile);
+    
+    logger.debug(createProfile);
+
     try {
       let results = await CreateProfileService(createProfile);
+      logger.info("We have created a new profile")
       res.json(results);
     } catch (e) {
+      errorLogger.error(e);
       next(e);
     }
   }

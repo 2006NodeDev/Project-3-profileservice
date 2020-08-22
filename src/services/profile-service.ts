@@ -7,9 +7,11 @@ import {
   createProfile,
 } from "../daos/SQL/profile-dao";
 
+//do we want to add loggging to this layer?  If so, where?
+
 export async function getAllProfilesService(): Promise<Profile[]> {
   return await getAllProfiles();
-} //not currently actually using this, just an example
+} 
 
 export async function getProfileByIdService(auth0Id: string): Promise<Profile> {
   return await getProfileById(auth0Id);
@@ -21,5 +23,3 @@ export async function UpdateProfileService(profile: Profile): Promise<Profile> {
 export async function CreateProfileService(profile: Profile): Promise<Profile> {
   return await createProfile(profile);
 }
-
-

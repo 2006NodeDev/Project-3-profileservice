@@ -4,11 +4,9 @@ import { connectionPool } from ".";
 
 import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
-//import { logger, errorLogger } from "../../utils/logger";
+import { logger, errorLogger } from "../../utils/loggers";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
-
-
 
 
 //get all profiles
@@ -23,13 +21,14 @@ export async function getAllProfiles(): Promise<Profile[]> {
       `select * from ${schema}.profiles p;`
     );
     //return results
+    //logger.debug(results)
     // return results.rows.map(profileDTOtoProfileConverter);
     return Promise.all(results.rows.map(profileDTOtoProfileConverter))
 
-
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    logger.error(e);
+    errorLogger.error(e);
     throw new Error("This error can't be handled");
   } finally {
     //let the connection go back to the pool
@@ -54,7 +53,8 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
     if (e.message === "NotFound") {
       throw new ProfileNotFoundError
     }
-    console.log(e);
+    logger.error(e);
+    errorLogger.error(e)
     throw new Error("This error can't be handled")
   } finally {
     client && client.release()
@@ -187,7 +187,8 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
   } catch (error) {
     client && client.query("ROLLBACK;"); //does not save if doesn't work
     //placeholder until similar error is figured out
-
+    logger.error(error);
+    errorLogger.error(error)
     throw new ProfileNotFoundError();
 
     //logger.error(error);
