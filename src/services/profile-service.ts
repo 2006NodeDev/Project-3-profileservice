@@ -21,3 +21,5 @@ export async function UpdateProfileService(profile: Profile): Promise<Profile> {
 export async function CreateProfileService(profile: Profile): Promise<Profile> {
   return await createProfile(profile);
 }
+
+

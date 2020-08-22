@@ -1,6 +1,6 @@
 export class ProfileDTO {
 	auth0_user_id: string
-	email: string 
+	email: string 	//should we rename this to caliber email vs revature email????? note for later.
 	batch_id: string  
 	nickname: string 
 	pronouns: string 
