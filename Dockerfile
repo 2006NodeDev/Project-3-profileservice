@@ -1,6 +1,6 @@
 FROM node:12.18
 
-COPY build PROJECT-3-PROFILESERVICE/build/
-COPY node_modules PROJECT-3-PROFILESERVICE/node_modules/
+COPY build project-3-profileservice/build/
+COPY node_modules project-3-profileservice/node_modules/
 
-CMD npm run deploy --prefix PROJECT-3-PROFILESERVICE/build
+CMD npm run deploy --prefix project-3-projectservice/build
