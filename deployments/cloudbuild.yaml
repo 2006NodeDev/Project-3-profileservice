@@ -1,12 +1,12 @@
 steps:
   # This step runs the unit tests on the app
-  # - name: "node"
-  #   id: Install
-  #   entrypoint: /bin/bash
-  #   args:
-  #     - -c
-  #     - |
-  #       npm install
+  - name: "node"
+    id: Install
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        npm install
   # - name: "node"
   #   id: Test
   #   entrypoint: /bin/bash
@@ -14,13 +14,13 @@ steps:
   #     - -c
   #     - |
   #       npm test
-  # - name: "node"
-  #   id: Build
-  #   entrypoint: /bin/bash
-  #   args:
-  #     - -c
-  #     - |
-  #       npm run build
+  - name: "node"
+    id: Build
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        npm run build
   # This step builds the container image.
   - name: "gcr.io/cloud-builders/docker"
     id: Build Image
