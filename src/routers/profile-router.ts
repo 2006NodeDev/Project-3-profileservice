@@ -4,9 +4,12 @@ import {
   UpdateProfileService,
   CreateProfileService,
   getProfileBySkillNameService,
+  getProfileByYearService,
+  getProfileByQuarterService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
+import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 //import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
 //import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 
@@ -16,14 +19,14 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get("/",  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      let allProfiles = await getAllProfilesService();
-      res.json(allProfiles);
-    } catch (e) {
-      next(e);
-    }
+profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    let allProfiles = await getAllProfilesService();
+    res.json(allProfiles);
+  } catch (e) {
+    next(e);
   }
+}
 );
 
 //get profiles based on auth0Id
@@ -44,141 +47,141 @@ profileRouter.get(
 //update profile
 
 //authorizationMiddleware has not been created and may not be necessary
-profileRouter.patch('/:auth0Id', async (req:Request, res:Response, next:NextFunction)=>{
-    let {auth0Id} = req.params
-    let{
-        firstName,
-        lastName,
-        email,
-        batchId,
-        nickname,
-        pronouns,
-        hobbies,
-        favFoods,
-        specialTrait,
-        degree,
-        favLangauge,
-        relevantSkills,
-        introvert,
-        studyGroup
-    } = req.body
+profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextFunction) => {
+  let { auth0Id } = req.params
+  let {
+    firstName,
+    lastName,
+    email,
+    batchId,
+    nickname,
+    pronouns,
+    hobbies,
+    favFoods,
+    specialTrait,
+    degree,
+    favLangauge,
+    relevantSkills,
+    introvert,
+    studyGroup
+  } = req.body
 
 
 
-    //this is where authorization code would go- ensure userId matches or role matches
-    //Not sure how we want to handle it so it's blank for now
+  //this is where authorization code would go- ensure userId matches or role matches
+  //Not sure how we want to handle it so it's blank for now
 
-    let updatedProfile: Profile = {
-      auth0Id,
-      firstName,
-      lastName,
-      email,
-      batchId,
-      nickname,
-      pronouns,
-      hobbies,
-      favFoods,
-      specialTrait,
-      degree,
-      favLangauge,
-      relevantSkills,
-      introvert,
-      studyGroup,
-    };
+  let updatedProfile: Profile = {
+    auth0Id,
+    firstName,
+    lastName,
+    email,
+    batchId,
+    nickname,
+    pronouns,
+    hobbies,
+    favFoods,
+    specialTrait,
+    degree,
+    favLangauge,
+    relevantSkills,
+    introvert,
+    studyGroup,
+  };
 
-    //update with new info or remain the same
-    updatedProfile.nickname = nickname || undefined;
-    updatedProfile.pronouns = pronouns || undefined;
-    updatedProfile.hobbies = hobbies || undefined;
-    updatedProfile.favFoods = favFoods || undefined;
-    updatedProfile.specialTrait = specialTrait || undefined;
-    updatedProfile.degree = degree || undefined;
-    updatedProfile.favLangauge = favLangauge || undefined;
-    updatedProfile.relevantSkills = relevantSkills || undefined;
-    updatedProfile.introvert = introvert || undefined;
-    updatedProfile.studyGroup = studyGroup || undefined;
+  //update with new info or remain the same
+  updatedProfile.nickname = nickname || undefined;
+  updatedProfile.pronouns = pronouns || undefined;
+  updatedProfile.hobbies = hobbies || undefined;
+  updatedProfile.favFoods = favFoods || undefined;
+  updatedProfile.specialTrait = specialTrait || undefined;
+  updatedProfile.degree = degree || undefined;
+  updatedProfile.favLangauge = favLangauge || undefined;
+  updatedProfile.relevantSkills = relevantSkills || undefined;
+  updatedProfile.introvert = introvert || undefined;
+  updatedProfile.studyGroup = studyGroup || undefined;
 
-    console.log(updatedProfile);
-    try {
-      let results = await UpdateProfileService(updatedProfile);
-      console.log("we have updated profile now to insert in db");
-      res.json(results);
-    } catch (e) {
-      console.log(e);
-    }
+  console.log(updatedProfile);
+  try {
+    let results = await UpdateProfileService(updatedProfile);
+    console.log("we have updated profile now to insert in db");
+    res.json(results);
+  } catch (e) {
+    console.log(e);
   }
+}
 );
 
 profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body); //lets look at what the request body looks like
-    let {
-      auth0Id,
-      firstName,
-      lastName,
-      email,
-      batchId,
-      nickname,
-      pronouns,
-      hobbies,
-      favFoods,
-      specialTrait,
-      degree,
-      favLangauge,
-      relevantSkills,
-      introvert,
-      studyGroup,
-    } = req.body;
+  console.log(req.body); //lets look at what the request body looks like
+  let {
+    auth0Id,
+    firstName,
+    lastName,
+    email,
+    batchId,
+    nickname,
+    pronouns,
+    hobbies,
+    favFoods,
+    specialTrait,
+    degree,
+    favLangauge,
+    relevantSkills,
+    introvert,
+    studyGroup,
+  } = req.body;
 
-    let createProfile: Profile = {
-      auth0Id,
-      firstName,
-      lastName,
-      email,
-      batchId,
-      nickname,
-      pronouns,
-      hobbies,
-      favFoods,
-      specialTrait,
-      degree,
-      favLangauge,
-      relevantSkills,
-      introvert,
-      studyGroup,
-    };
+  let createProfile: Profile = {
+    auth0Id,
+    firstName,
+    lastName,
+    email,
+    batchId,
+    nickname,
+    pronouns,
+    hobbies,
+    favFoods,
+    specialTrait,
+    degree,
+    favLangauge,
+    relevantSkills,
+    introvert,
+    studyGroup,
+  };
 
-    createProfile.nickname = nickname;
-    createProfile.hobbies = hobbies;
-    createProfile.favFoods = favFoods;
-    createProfile.specialTrait = specialTrait;
-    createProfile.degree = degree;
-    createProfile.favLangauge = favLangauge;
-    createProfile.relevantSkills = relevantSkills;
-    createProfile.introvert = introvert;
-    createProfile.studyGroup = studyGroup;
-    console.log(createProfile);
-    try {
-      let results = await CreateProfileService(createProfile);
-      res.json(results);
-    } catch (e) {
-      next(e);
-    }
+  createProfile.nickname = nickname;
+  createProfile.hobbies = hobbies;
+  createProfile.favFoods = favFoods;
+  createProfile.specialTrait = specialTrait;
+  createProfile.degree = degree;
+  createProfile.favLangauge = favLangauge;
+  createProfile.relevantSkills = relevantSkills;
+  createProfile.introvert = introvert;
+  createProfile.studyGroup = studyGroup;
+  console.log(createProfile);
+  try {
+    let results = await CreateProfileService(createProfile);
+    res.json(results);
+  } catch (e) {
+    next(e);
   }
+}
 );
 
-/*
-profileRouter.get("/email/:email",  async (req: Request, res: Response, next: NextFunction) => {
-    let { email } = req.params;
-    //since text, idk what to test for to ensure input accuracy (can't use NaN)
-    try {
-      let associate = await userServiceGetUserByEmail(email);
-     
-      res.json(associate);
 
-    } catch (e) {
-      next(e);
-    }
+profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {
+  let { email } = req.params;
+  //since text, idk what to test for to ensure input accuracy (can't use NaN)
+  try {
+    let associate = await userServiceGetUserByEmail(email);
+
+    res.json(associate);
+
+  } catch (e) {
+    next(e);
   }
+}
 );
 
 /*
@@ -189,19 +192,33 @@ profileRouter.get("/email/:email",  async (req: Request, res: Response, next: Ne
 
 
 
-profileRouter.get('/skill/:skillname', async (req:any, res:Response, next:NextFunction) => {
+profileRouter.get('/skill/:skillname', async (req: any, res: Response, next: NextFunction) => {
   let skill = req.params.skillname
-  console.log(skill)
-  try{
-      let associate = await getProfileBySkillNameService(skill)
-    //   let profileBySkill :Profile[]
-    //   for (var i in associate){
-    //     profileBySkill = profileBySkill.concat(await associatetoProfileDTOConverter(associate[i]))
-    // }
+  try {
+    let associate = await getProfileBySkillNameService(skill)
+    res.json(associate)
+  } catch (e) {
+    next(e)
+  }
+})
 
+
+profileRouter.get('/year/:year', async (req:any, res:Response, next:NextFunction) => {
+  let year = req.params.year
+  try{
+      let associate = await getProfileByYearService(year)
       res.json(associate)
   } catch (e){
       next(e)
   }
 })
-//associatetoProfileDTOConverter
+
+profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFunction) => {
+  let quarter = req.params.quarter
+  try{
+      let associate = await getProfileByQuarterService(quarter)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
