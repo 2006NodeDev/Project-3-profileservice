@@ -5,6 +5,7 @@ import { Associate } from "../models/Associate";
 
 export async function profileDTOtoProfileConverter(dto:ProfileDTO):Promise<Profile>{
     let assoc:Associate = await userServiceGetUserByEmail(dto.email)
+    // let assoc:Associate = await userserviceGetAssociateBySkillName(INSERT SOME SKILL NAME HERE ???)
 
 
     return {

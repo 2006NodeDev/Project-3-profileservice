@@ -5,6 +5,11 @@ import { connectionPool } from ".";
 import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
 import { logger, errorLogger } from "../../utils/loggers";
+import { userserviceGetAssociateBySkillName } from "../../remote/user-service/user-service-get-assoc-by-skill-name";
+import { ProfileDTO } from "../../dtos/profile-dto";
+import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
+import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
+// import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
 
@@ -21,8 +26,6 @@ export async function getAllProfiles(): Promise<Profile[]> {
       `select * from ${schema}.profiles p;`
     );
     //return results
-    //logger.debug(results)
-    // return results.rows.map(profileDTOtoProfileConverter);
     return Promise.all(results.rows.map(profileDTOtoProfileConverter))
 
   } catch (e) {
@@ -197,4 +200,166 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
   } finally {
     client && client.release();
   }
+}
+//getAssociateBySkillNameService
+
+
+//getAssociateBySkillName
+export async function getAllProfilesBySkill(skillName: string): Promise<Profile[]> {
+  //first, decleare a client
+  let client: PoolClient;
+  try {
+    //get connection
+    client = await connectionPool.connect();
+
+    let caliberUsersbySkill = await userserviceGetAssociateBySkillName(skillName)
+
+    let emails = []
+    for (var i in caliberUsersbySkill) {
+      emails.push(caliberUsersbySkill[i].email)
+    }
+  
+    let filter_res = []
+
+    await client.query("BEGIN;")
+
+    for (var i in emails) {
+      let result: QueryResult = await client.query(
+        `select * from ${schema}.profiles p where p.email = $1;`, [emails[i]]
+      );
+      if (result.rows[0]) {
+        filter_res.push(result.rows[0])
+      }
+    }
+
+    await client.query("COMMIT;");
+
+    //return ProfileDTO-s
+     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+
+  } catch (e) {
+    //if we get an error we don't know
+    console.log(e);
+    throw new Error("This error can't be handled");
+  } finally {
+    //let the connection go back to the pool
+    client && client.release();
+  }
+}
+
+
+
+//getAssociateBySkillName
+export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
+  //first, decleare a client
+  let client: PoolClient;
+  try {
+    //get connection
+    client = await connectionPool.connect();
+
+    let caliberUsersbyYear = await userserviceGetAssociateByYear(year)
+
+    let emails = []
+    for (var i in caliberUsersbyYear) {
+      emails.push(caliberUsersbyYear[i].email)
+    }
+  
+    let filter_res = []
+
+    await client.query("BEGIN;")
+
+    for (var i in emails) {
+      let result: QueryResult = await client.query(
+        `select * from ${schema}.profiles p where p.email = $1;`, [emails[i]]
+      );
+      if (result.rows[0]) {
+        filter_res.push(result.rows[0])
+      }
+    }
+
+    await client.query("COMMIT;");
+
+    //return ProfileDTO-s
+     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+
+  } catch (e) {
+    //if we get an error we don't know
+    console.log(e);
+    throw new Error("This error can't be handled");
+  } finally {
+    //let the connection go back to the pool
+    client && client.release();
+  }
+}
+
+
+
+export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[]> {
+  //first, decleare a client
+  let client: PoolClient;
+  try {
+    //get connection
+    client = await connectionPool.connect();
+
+    let caliberUsersbyQuarter = await userserviceGetAssociateByQuarter(quarter)
+
+    let emails = []
+    for (var i in caliberUsersbyQuarter) {
+      emails.push(caliberUsersbyQuarter[i].email)
+    }
+  
+    let filter_res = []
+
+    await client.query("BEGIN;")
+
+    for (var i in emails) {
+      let result: QueryResult = await client.query(
+        `select * from ${schema}.profiles p where p.email = $1;`, [emails[i]]
+      );
+      if (result.rows[0]) {
+        filter_res.push(result.rows[0])
+      }
+    }
+
+    await client.query("COMMIT;");
+
+    //return ProfileDTO-s
+     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+
+  } catch (e) {
+    //if we get an error we don't know
+    console.log(e);
+    throw new Error("This error can't be handled");
+  } finally {
+    //let the connection go back to the pool
+    client && client.release();
+  }
+}
+
+
+
+
+
+export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
+
+  let client: PoolClient
+  try {
+    client = await connectionPool.connect()
+    let results: QueryResult = await client.query(`select * from ${schema}.profiles p 
+                                                    where p.email = $1;`, [email])
+    // if (results.rowCount === 0) {
+    //   throw new Error('NotFound')
+    // } else {
+    return results.rows[0]
+    // }
+  } catch (e) {
+    if (e.message === "NotFound") {
+      throw new ProfileNotFoundError
+    }
+    console.log(e);
+    throw new Error("This error can't be handled")
+  } finally {
+    client && client.release()
+  }
+
 }
