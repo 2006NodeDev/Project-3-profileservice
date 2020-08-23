@@ -12,7 +12,8 @@ import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
 import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 //import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
-//import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
+import { logger, errorLogger } from "../utils/loggers";
+
 
 export const profileRouter = express.Router();
 
@@ -20,12 +21,18 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    let allProfiles = await getAllProfilesService();
-    res.json(allProfiles);
-  } catch (e) {
-    next(e);
+profileRouter.get(
+  "/",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let allProfiles = await getAllProfilesService();
+      res.json(allProfiles);
+      logger.debug(allProfiles)
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
+
   }
 }
 );
@@ -39,7 +46,9 @@ profileRouter.get(
     try {
       let profile = await getProfileByIdService(auth0Id);
       res.json(profile);
+      logger.debug(profile)
     } catch (e) {
+      errorLogger.error(e);
       next(e);
     }
   }
@@ -48,6 +57,7 @@ profileRouter.get(
 //update profile
 
 //authorizationMiddleware has not been created and may not be necessary
+
 profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextFunction) => {
   let { auth0Id } = req.params
   let {
@@ -102,17 +112,23 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   updatedProfile.studyGroup = studyGroup || undefined;
 
   console.log(updatedProfile);
-  try {
-    let results = await UpdateProfileService(updatedProfile);
-    console.log("we have updated profile now to insert in db");
-    res.json(results);
-  } catch (e) {
-    console.log(e);
+     try {
+      let results = await UpdateProfileService(updatedProfile);
+      logger.info("We have updated profile now to insert in db");
+      res.json(results);
+    } catch (e) {
+      console.log(e);
+      logger.debug(updatedProfile);
+      errorLogger.error(e);
+      next(e)
+    }
+
   }
 }
 );
 
 profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
+  
   console.log(req.body); //lets look at what the request body looks like
   let {
     auth0Id,
@@ -159,12 +175,20 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
   createProfile.relevantSkills = relevantSkills;
   createProfile.introvert = introvert;
   createProfile.studyGroup = studyGroup;
+  
   console.log(createProfile);
-  try {
-    let results = await CreateProfileService(createProfile);
-    res.json(results);
-  } catch (e) {
-    next(e);
+  
+  logger.debug(createProfile);
+
+    try {
+      let results = await CreateProfileService(createProfile);
+      logger.info("We have created a new profile")
+      res.json(results);
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
+
   }
 }
 );
