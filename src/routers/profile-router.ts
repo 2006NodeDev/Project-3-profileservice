@@ -6,13 +6,14 @@ import {
   getProfileBySkillNameService,
   getProfileByYearService,
   getProfileByQuarterService,
+  getProfileByTrainerService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
-import { logger, errorLogger } from "../utils/loggers";
 import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 //import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
-//import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
+import { logger, errorLogger } from "../utils/loggers";
+
 
 export const profileRouter = express.Router();
 
@@ -20,14 +21,19 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    let allProfiles = await getAllProfilesService();
-    res.json(allProfiles);
-  } catch (e) {
-    next(e);
+profileRouter.get(
+  "/",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let allProfiles = await getAllProfilesService();
+      res.json(allProfiles);
+      logger.debug(allProfiles)
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
+
   }
-}
 );
 
 //get profiles based on auth0Id
@@ -70,7 +76,6 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } = req.body
 
 
-
   //this is where authorization code would go- ensure userId matches or role matches
   //Not sure how we want to handle it so it's blank for now
 
@@ -105,17 +110,23 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   updatedProfile.studyGroup = studyGroup || undefined;
 
   console.log(updatedProfile);
-  try {
-    let results = await UpdateProfileService(updatedProfile);
-    console.log("we have updated profile now to insert in db");
-    res.json(results);
-  } catch (e) {
-    console.log(e);
+     try {
+      let results = await UpdateProfileService(updatedProfile);
+      logger.info("We have updated profile now to insert in db");
+      res.json(results);
+    } catch (e) {
+      console.log(e);
+      logger.debug(updatedProfile);
+      errorLogger.error(e);
+      next(e)
+    }
+
   }
-}
+
 );
 
 profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
+  
   console.log(req.body); //lets look at what the request body looks like
   let {
     auth0Id,
@@ -162,16 +173,23 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
   createProfile.relevantSkills = relevantSkills;
   createProfile.introvert = introvert;
   createProfile.studyGroup = studyGroup;
+  
   console.log(createProfile);
-  try {
-    let results = await CreateProfileService(createProfile);
-    res.json(results);
-  } catch (e) {
-    next(e);
-  }
-}
-);
+  
+  logger.debug(createProfile);
 
+    try {
+      let results = await CreateProfileService(createProfile);
+      logger.info("We have created a new profile")
+      res.json(results);
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
+
+  }
+
+);
 
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {
   let { email } = req.params;
@@ -186,14 +204,6 @@ profileRouter.get("/email/:email", async (req: Request, res: Response, next: Nex
   }
 }
 );
-
-/*
- for (var i in batchList){
-        getAssocInBatch = getAssocInBatch.concat(await getAssociatesByBatchId(batchList[i].batchId))
-    }
-*/
-
-
 
 profileRouter.get('/skill/:skillname', async (req: any, res: Response, next: NextFunction) => {
   let skill = req.params.skillname
@@ -220,6 +230,16 @@ profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFu
   let quarter = req.params.quarter
   try{
       let associate = await getProfileByQuarterService(quarter)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+
+profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFunction) => {
+  let trainer = req.params.trainer
+  try{
+      let associate = await getProfileByTrainerService(trainer)
       res.json(associate)
   } catch (e){
       next(e)
