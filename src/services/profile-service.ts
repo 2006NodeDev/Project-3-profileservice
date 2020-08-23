@@ -5,7 +5,12 @@ import {
   getProfileById,
   UpdateProfile,
   createProfile,
+  getAllProfilesBySkill,
+  getAllProfilesByYear,
+  getAllProfilesByQuarter,
+  getAllProfilesByTrainer,
 } from "../daos/SQL/profile-dao";
+//import { getAssociateBySkillName } from "../remote/user-service/user-service-get-assoc-by-skill-name";
 
 //do we want to add loggging to this layer?  If so, where?
 
@@ -23,3 +28,22 @@ export async function UpdateProfileService(profile: Profile): Promise<Profile> {
 export async function CreateProfileService(profile: Profile): Promise<Profile> {
   return await createProfile(profile);
 }
+
+
+export async function getProfileBySkillNameService(skill: string): Promise<Profile[]> {
+ return await getAllProfilesBySkill(skill); 
+}
+
+export async function getProfileByYearService(year: number): Promise<Profile[]> {
+  return await getAllProfilesByYear(year); 
+}
+
+ export async function getProfileByQuarterService(quarter: number): Promise<Profile[]> {
+  return await getAllProfilesByQuarter(quarter); 
+}
+
+//getProfileByQuarterService
+export async function getProfileByTrainerService(trainer: string): Promise<Profile[]> {
+  return await getAllProfilesByTrainer(trainer); 
+}
+

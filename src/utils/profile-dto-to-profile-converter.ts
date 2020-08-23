@@ -2,9 +2,12 @@ import { ProfileDTO } from "../dtos/profile-dto";
 import { Profile } from "../models/Profile";
 import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 import { Associate } from "../models/Associate";
+import { userServiceGetBatchByAssociate } from "../remote/user-service/user-service-get-batch-by-assoc";
 
 export async function profileDTOtoProfileConverter(dto:ProfileDTO):Promise<Profile>{
     let assoc:Associate = await userServiceGetUserByEmail(dto.email)
+    let batch:string = await userServiceGetBatchByAssociate(dto.email)
+    // let assoc:Associate = await userserviceGetAssociateBySkillName(INSERT SOME SKILL NAME HERE ???)
 
 
     return {
@@ -12,7 +15,7 @@ export async function profileDTOtoProfileConverter(dto:ProfileDTO):Promise<Profi
         firstName: assoc.firstName,
         lastName:assoc.lastName,
         email: dto.email,
-        batchId: dto.batch_id,
+        batchId: batch,
         nickname: dto.nickname,
         pronouns: dto.pronouns,
         hobbies: dto.hobbies,

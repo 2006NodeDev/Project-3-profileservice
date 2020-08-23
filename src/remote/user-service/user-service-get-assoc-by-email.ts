@@ -17,3 +17,4 @@ export const userServiceGetUserByEmail = async (email:string) => {
         return defaultUser
     }
 }
+
