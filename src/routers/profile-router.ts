@@ -7,6 +7,7 @@ import {
   getProfileByYearService,
   getProfileByQuarterService,
   getProfileByTrainerService,
+  getCurrentBatchassociatesForTrainerService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -240,6 +241,16 @@ profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFu
   let trainer = req.params.trainer
   try{
       let associate = await getProfileByTrainerService(trainer)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+
+profileRouter.get('/trainer/current/:trainer', async (req:any, res:Response, next:NextFunction) => {
+  let trainer = req.params.trainer
+  try{
+      let associate = await getCurrentBatchassociatesForTrainerService(trainer)
       res.json(associate)
   } catch (e){
       next(e)
