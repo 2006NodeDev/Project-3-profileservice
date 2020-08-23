@@ -6,6 +6,7 @@ import {
   getProfileBySkillNameService,
   getProfileByYearService,
   getProfileByQuarterService,
+  getProfileByTrainerService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -217,6 +218,16 @@ profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFu
   let quarter = req.params.quarter
   try{
       let associate = await getProfileByQuarterService(quarter)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+
+profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFunction) => {
+  let trainer = req.params.trainer
+  try{
+      let associate = await getProfileByTrainerService(trainer)
       res.json(associate)
   } catch (e){
       next(e)
