@@ -5,7 +5,9 @@ import {
   getProfileById,
   UpdateProfile,
   createProfile,
+  getAllProfilesBySkill,
 } from "../daos/SQL/profile-dao";
+//import { getAssociateBySkillName } from "../remote/user-service/user-service-get-assoc-by-skill-name";
 
 export async function getAllProfilesService(): Promise<Profile[]> {
   return await getAllProfiles();
@@ -22,4 +24,9 @@ export async function CreateProfileService(profile: Profile): Promise<Profile> {
   return await createProfile(profile);
 }
 
+export async function getProfileBySkillNameService(skill: string): Promise<Profile[]> {
+ return await getAllProfilesBySkill(skill);
+ 
+ //getAssociateBySkillNameService
+}
 
