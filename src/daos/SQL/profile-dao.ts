@@ -13,9 +13,6 @@ import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
 
-
-
-
 //get all profiles
 export async function getAllProfiles(): Promise<Profile[]> {
   //first, decleare a client
@@ -82,7 +79,6 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
       [
         newProfile.auth0Id,
         newProfile.email,
-        newProfile.batchId,
         newProfile.nickname,
         newProfile.pronouns,
         newProfile.hobbies,

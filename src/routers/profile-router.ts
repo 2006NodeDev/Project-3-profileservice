@@ -68,7 +68,6 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } = req.body
 
 
-
   //this is where authorization code would go- ensure userId matches or role matches
   //Not sure how we want to handle it so it's blank for now
 
@@ -170,7 +169,6 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
 }
 );
 
-
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {
   let { email } = req.params;
   //since text, idk what to test for to ensure input accuracy (can't use NaN)
@@ -184,14 +182,6 @@ profileRouter.get("/email/:email", async (req: Request, res: Response, next: Nex
   }
 }
 );
-
-/*
- for (var i in batchList){
-        getAssocInBatch = getAssocInBatch.concat(await getAssociatesByBatchId(batchList[i].batchId))
-    }
-*/
-
-
 
 profileRouter.get('/skill/:skillname', async (req: any, res: Response, next: NextFunction) => {
   let skill = req.params.skillname
