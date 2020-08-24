@@ -7,8 +7,8 @@ import {
   getProfileByYearService,
   getProfileByQuarterService,
   getProfileByTrainerService,
+  getBatchAssociatesById,
   getCurrentBatchassociatesForTrainerService,
-
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -22,12 +22,18 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    let allProfiles = await getAllProfilesService();
-    res.json(allProfiles);
-  } catch (e) {
-    next(e);
+
+profileRouter.get(
+  "/",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      let allProfiles = await getAllProfilesService();
+      res.json(allProfiles);
+      logger.debug(allProfiles)
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
   }
 );
 
@@ -41,6 +47,22 @@ profileRouter.get(
       let profile = await getProfileByIdService(auth0Id);
       res.json(profile);
     } catch (e) {
+      next(e);
+    }
+  }
+);
+
+profileRouter.get(
+  "/batch/:auth0Id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { auth0Id } = req.params;
+    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+    try {
+      let profile = await getBatchAssociatesById(auth0Id);
+      res.json(profile);
+      logger.debug(profile)
+    } catch (e) {
+      errorLogger.error(e);
       next(e);
     }
   }
@@ -118,7 +140,6 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } catch (e) {
     console.log(e);
   }
-
 );
 
 profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
