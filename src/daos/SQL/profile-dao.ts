@@ -10,6 +10,7 @@ import { ProfileDTO } from "../../dtos/profile-dto";
 import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
+import { logger, errorLogger } from "../../utils/loggers";
 // import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
