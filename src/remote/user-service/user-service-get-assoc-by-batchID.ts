@@ -3,9 +3,9 @@ import {Associate} from '../../models/Associate'
 // import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 // import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
-export const userserviceGetAssociateByBatch = async (userBatch:string):Promise<Associate[]> => {
+export const userserviceGetAssociateByBatch = async (batchID:string):Promise<Associate[]> => {
     try{
-        let res = await userServiceBaseClient.get(`/associates/batch/${userBatch}`
+        let res = await userServiceBaseClient.get(`/associates/batch/${batchID}`
         , {
             // headers:{
             //     'Authorization': token

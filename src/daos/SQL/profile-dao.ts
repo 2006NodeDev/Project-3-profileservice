@@ -1,21 +1,14 @@
 import { PoolClient, QueryResult } from "pg";
 import { Profile } from "../../models/Profile";
 import { connectionPool } from ".";
-
 import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
-import { logger, errorLogger } from "../../utils/loggers";
-
 import { userserviceGetAssociateBySkillName } from "../../remote/user-service/user-service-get-assoc-by-skill-name";
 import { ProfileDTO } from "../../dtos/profile-dto";
 import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
-
-import { userserviceGetAssociateByBatch } from "../../remote/user-service/user-service-get-assoc-by-batch";
-import { logger, errorLogger } from "../../utils/loggers";
-//import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
-
+import { userserviceGetAssociateByBatch } from "../../remote/user-service/user-service-get-assoc-by-batchID";
 import { userserviceGetCurrentAssociatesForTrainer } from "../../remote/user-service/user-service-get-current-associates-for-trainer";
 import { logger, errorLogger } from "../../utils/loggers";
 
@@ -60,8 +53,7 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
     } else {
       let res = await profileDTOtoProfileConverter(results.rows[0])
       console.log("dto result: " + res)
-      return res 
-      // return profileDTOtoProfileConverter(results.rows[0])
+      return res
     }
   } catch (e) {
     if (e.message === "NotFound") {
@@ -76,7 +68,6 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
 
 }
 
-//import { logger, errorLogger } from "../../utils/logger";
 
 //create profile
 export async function createProfile(newProfile: Profile): Promise<Profile> {
@@ -85,9 +76,6 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     client = await connectionPool.connect();
     await client.query("BEGIN;");
 
-
-    //"batch_id",
-    //, $13
     let results = await client.query(
       `insert into ${schema}.profiles("auth0_user_id", "email",  "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
                               values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
@@ -197,7 +185,7 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     }
     console.log("about to commit");
     await client.query("COMMIT;"); //ends the transaction
-    
+
     //below is just a placeholder, will edit when get profile is done
     return getProfileById(updatedProfile.auth0Id);
 
@@ -232,7 +220,7 @@ export async function getAllProfilesBySkill(skillName: string): Promise<Profile[
     for (var i in caliberUsersbySkill) {
       emails.push(caliberUsersbySkill[i].email)
     }
-  
+
     let filter_res = []
 
     await client.query("BEGIN;")
@@ -249,7 +237,7 @@ export async function getAllProfilesBySkill(skillName: string): Promise<Profile[
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
   } catch (e) {
     //if we get an error we don't know
@@ -277,7 +265,7 @@ export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
     for (var i in caliberUsersbyYear) {
       emails.push(caliberUsersbyYear[i].email)
     }
-  
+
     let filter_res = []
 
     await client.query("BEGIN;")
@@ -294,7 +282,7 @@ export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
   } catch (e) {
     //if we get an error we don't know
@@ -319,7 +307,7 @@ export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[
     for (var i in caliberUsersbyQuarter) {
       emails.push(caliberUsersbyQuarter[i].email)
     }
-  
+
     let filter_res = []
 
     await client.query("BEGIN;")
@@ -336,7 +324,7 @@ export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
   } catch (e) {
     //if we get an error we don't know
@@ -362,7 +350,7 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
       emails.push(caliberUsersbyTrainer[i].email)
     }
     console.log(emails)
-  
+
     let filter_res = []
 
     await client.query("BEGIN;")
@@ -379,7 +367,7 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
   } catch (e) {
     //if we get an error we don't know
@@ -407,7 +395,7 @@ export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<P
       emails.push(caliberUsersbyTrainer[i].email)
     }
     console.log(emails)
-  
+
     let filter_res = []
 
     await client.query("BEGIN;")
@@ -424,7 +412,7 @@ export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<P
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
   } catch (e) {
     //if we get an error we don't know
@@ -465,16 +453,17 @@ export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> 
 
   let client: PoolClient
   try {
-  let user = await getProfileById(auth0Id)
-  let userBatch = user.batchId
-  let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(userBatch)
+    let currUser = await getProfileById(auth0Id)
+    let currUserBatchID = currUser.batchId
+    let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(currUserBatchID)
 
-  let emails = []
-  for (var i in caliberAssociatesbyBatch) {
-    emails.push(caliberAssociatesbyBatch[i].email)
-  }
+    let emails = []
+    for (var i in caliberAssociatesbyBatch) {
+      emails.push(caliberAssociatesbyBatch[i].email)
+    }
 
-  let filter_res = []
+    let filter_res = []
+    client = await connectionPool.connect()
 
     await client.query("BEGIN;")
 
@@ -490,10 +479,10 @@ export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> 
     await client.query("COMMIT;");
 
     //return ProfileDTO-s
-     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+    return Promise.all(filter_res.map(profileDTOtoProfileConverter));
 
 
-} catch (e) {
+  } catch (e) {
     if (e.message === "NotFound") {
       throw new ProfileNotFoundError
     }
