@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
 })
 
 //what port do we want?
-app.listen(2008, () => {
+app.listen(2002, () => {
   //start server on port 2007
 
   console.log("Server has started");

@@ -10,6 +10,7 @@ import { ProfileDTO } from "../../dtos/profile-dto";
 import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
+import { logger, errorLogger } from "../../utils/loggers";
 // import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
@@ -43,7 +44,6 @@ export async function getAllProfiles(): Promise<Profile[]> {
 
 //find profiles by id
 export async function getProfileById(auth0Id: string): Promise<Profile> {
-
   let client: PoolClient
   try {
     client = await connectionPool.connect()
@@ -52,7 +52,10 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
     if (results.rowCount === 0) {
       throw new Error('NotFound')
     } else {
-      return profileDTOtoProfileConverter(results.rows[0])
+      let res = await profileDTOtoProfileConverter(results.rows[0])
+      console.log("dto result: " + res)
+      return res 
+      // return profileDTOtoProfileConverter(results.rows[0])
     }
   } catch (e) {
     if (e.message === "NotFound") {
@@ -114,7 +117,6 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
   let client: PoolClient;
 
   try {
-    console.log("trying to input in db");
     client = await connectionPool.connect();
     await client.query("BEGIN;"); //begins the transaction
     //left off the userId aspect of it for now, not sure how that is going to work
@@ -186,8 +188,10 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     }
     console.log("about to commit");
     await client.query("COMMIT;"); //ends the transaction
+    
     //below is just a placeholder, will edit when get profile is done
     return getProfileById(updatedProfile.auth0Id);
+
   } catch (error) {
     client && client.query("ROLLBACK;"); //does not save if doesn't work
     //placeholder until similar error is figured out
