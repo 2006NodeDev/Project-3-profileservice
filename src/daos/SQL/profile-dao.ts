@@ -52,7 +52,6 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
       throw new Error('NotFound')
     } else {
       let res = await profileDTOtoProfileConverter(results.rows[0])
-      console.log("dto result: " + res)
       return res
     }
   } catch (e) {
@@ -453,9 +452,8 @@ export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> 
 
   let client: PoolClient
   try {
-    let currUser = await getProfileById(auth0Id)
-    let currUserBatchID = currUser.batchId
-    let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(currUserBatchID)
+    let currUser = (await getProfileById(auth0Id)).batchId
+    let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(currUser)
 
     let emails = []
     for (var i in caliberAssociatesbyBatch) {

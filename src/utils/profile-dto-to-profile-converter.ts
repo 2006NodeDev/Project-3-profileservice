@@ -6,8 +6,8 @@ import { userServiceGetBatchByAssociate } from "../remote/user-service/user-serv
 
 export async function profileDTOtoProfileConverter(dto:ProfileDTO):Promise<Profile>{
     let assoc:Associate = await userServiceGetUserByEmail(dto.email)
+
     let batch:string = await userServiceGetBatchByAssociate(dto.email)
-    // let assoc:Associate = await userserviceGetAssociateBySkillName(INSERT SOME SKILL NAME HERE ???)
 
 
     return {

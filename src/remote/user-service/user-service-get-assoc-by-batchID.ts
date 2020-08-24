@@ -5,7 +5,7 @@ import {Associate} from '../../models/Associate'
 
 export const userserviceGetAssociateByBatch = async (batchID:string):Promise<Associate[]> => {
     try{
-        let res = await userServiceBaseClient.get(`/associates/batch/${batchID}`
+        let res = await userServiceBaseClient.get(`/associates/batches/${batchID}`
         , {
             // headers:{
             //     'Authorization': token
