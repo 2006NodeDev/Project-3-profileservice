@@ -8,13 +8,13 @@ import {
   getProfileByQuarterService,
   getProfileByTrainerService,
   getCurrentBatchassociatesForTrainerService,
+
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
 import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 //import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
-import { logger, errorLogger } from "../utils/loggers";
-
+//import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 
 export const profileRouter = express.Router();
 
@@ -22,18 +22,12 @@ export const profileRouter = express.Router();
 
 //get all profiles
 
-profileRouter.get(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      let allProfiles = await getAllProfilesService();
-      res.json(allProfiles);
-      logger.debug(allProfiles)
-    } catch (e) {
-      errorLogger.error(e);
-      next(e);
-    }
-
+profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    let allProfiles = await getAllProfilesService();
+    res.json(allProfiles);
+  } catch (e) {
+    next(e);
   }
 );
 
@@ -46,9 +40,7 @@ profileRouter.get(
     try {
       let profile = await getProfileByIdService(auth0Id);
       res.json(profile);
-      logger.debug(profile)
     } catch (e) {
-      errorLogger.error(e);
       next(e);
     }
   }
@@ -59,11 +51,18 @@ profileRouter.get(
 //authorizationMiddleware has not been created and may not be necessary
 profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextFunction) => {
   let { auth0Id } = req.params
+
+  let user_profile = await getProfileByIdService(auth0Id)
+  console.log(user_profile.email)
+
+  let batchId = await userServiceGetUserByEmail(user_profile.email)
+  console.log(batchId)
+
+
   let {
     firstName,
     lastName,
     email,
-    batchId,
     nickname,
     pronouns,
     hobbies,
@@ -77,9 +76,10 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } = req.body
 
 
+
   //this is where authorization code would go- ensure userId matches or role matches
   //Not sure how we want to handle it so it's blank for now
-
+  
   let updatedProfile: Profile = {
     auth0Id,
     firstName,
@@ -111,23 +111,18 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   updatedProfile.studyGroup = studyGroup || undefined;
 
   console.log(updatedProfile);
-     try {
-      let results = await UpdateProfileService(updatedProfile);
-      logger.info("We have updated profile now to insert in db");
-      res.json(results);
-    } catch (e) {
-      console.log(e);
-      logger.debug(updatedProfile);
-      errorLogger.error(e);
-      next(e)
-    }
-
+  try {
+    let results = await UpdateProfileService(updatedProfile);
+    console.log("we have updated profile now to insert in db");
+    res.json(results);
+  } catch (e) {
+    console.log(e);
   }
 
 );
 
-profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
-  
+profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
+
   console.log(req.body); //lets look at what the request body looks like
   let {
     auth0Id,
@@ -174,23 +169,16 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
   createProfile.relevantSkills = relevantSkills;
   createProfile.introvert = introvert;
   createProfile.studyGroup = studyGroup;
-  
   console.log(createProfile);
-  
-  logger.debug(createProfile);
-
-    try {
-      let results = await CreateProfileService(createProfile);
-      logger.info("We have created a new profile")
-      res.json(results);
-    } catch (e) {
-      errorLogger.error(e);
-      next(e);
-    }
-
+  try {
+    let results = await CreateProfileService(createProfile);
+    res.json(results);
+  } catch (e) {
+    next(e);
   }
 
 );
+
 
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {
   let { email } = req.params;
@@ -205,6 +193,14 @@ profileRouter.get("/email/:email", async (req: Request, res: Response, next: Nex
   }
 }
 );
+
+/*
+ for (var i in batchList){
+        getAssocInBatch = getAssocInBatch.concat(await getAssociatesByBatchId(batchList[i].batchId))
+    }
+*/
+
+
 
 profileRouter.get('/skill/:skillname', async (req: any, res: Response, next: NextFunction) => {
   let skill = req.params.skillname
@@ -237,6 +233,7 @@ profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFu
   }
 })
 
+
 profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFunction) => {
   let trainer = req.params.trainer
   try{
@@ -256,3 +253,4 @@ profileRouter.get('/trainer/current/:trainer', async (req:any, res:Response, nex
       next(e)
   }
 })
+

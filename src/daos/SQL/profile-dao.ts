@@ -12,6 +12,8 @@ import { userserviceGetAssociateByYear } from "../../remote/user-service/user-se
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
 import { userserviceGetCurrentAssociatesForTrainer } from "../../remote/user-service/user-service-get-current-associates-for-trainer";
+import { logger, errorLogger } from "../../utils/loggers";
+
 // import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
@@ -44,7 +46,6 @@ export async function getAllProfiles(): Promise<Profile[]> {
 
 //find profiles by id
 export async function getProfileById(auth0Id: string): Promise<Profile> {
-
   let client: PoolClient
   try {
     client = await connectionPool.connect()
@@ -53,7 +54,10 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
     if (results.rowCount === 0) {
       throw new Error('NotFound')
     } else {
-      return profileDTOtoProfileConverter(results.rows[0])
+      let res = await profileDTOtoProfileConverter(results.rows[0])
+      console.log("dto result: " + res)
+      return res 
+      // return profileDTOtoProfileConverter(results.rows[0])
     }
   } catch (e) {
     if (e.message === "NotFound") {
@@ -77,9 +81,12 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     client = await connectionPool.connect();
     await client.query("BEGIN;");
 
+
+    //"batch_id",
+    //, $13
     let results = await client.query(
-      `insert into ${schema}.profiles("auth0_user_id", "email", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
-                              values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      `insert into ${schema}.profiles("auth0_user_id", "email",  "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
+                              values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                               returning *`,
       [
         newProfile.auth0Id,
@@ -115,7 +122,6 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
   let client: PoolClient;
 
   try {
-    console.log("trying to input in db");
     client = await connectionPool.connect();
     await client.query("BEGIN;"); //begins the transaction
     //left off the userId aspect of it for now, not sure how that is going to work
@@ -187,8 +193,10 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
     }
     console.log("about to commit");
     await client.query("COMMIT;"); //ends the transaction
+    
     //below is just a placeholder, will edit when get profile is done
     return getProfileById(updatedProfile.auth0Id);
+
   } catch (error) {
     client && client.query("ROLLBACK;"); //does not save if doesn't work
     //placeholder until similar error is figured out
@@ -294,8 +302,6 @@ export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
   }
 }
 
-
-
 export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[]> {
   //first, decleare a client
   let client: PoolClient;
@@ -382,6 +388,7 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
   }
 }
 
+
 export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<Profile[]> {
   //first, decleare a client
   let client: PoolClient;
@@ -447,5 +454,4 @@ export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
   } finally {
     client && client.release()
   }
-
 }
