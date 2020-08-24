@@ -6,6 +6,9 @@ import {
   getProfileBySkillNameService,
   getProfileByYearService,
   getProfileByQuarterService,
+  getProfileByTrainerService,
+  getCurrentBatchassociatesForTrainerService,
+
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -26,7 +29,6 @@ profileRouter.get("/", async (req: Request, res: Response, next: NextFunction) =
   } catch (e) {
     next(e);
   }
-}
 );
 
 //get profiles based on auth0Id
@@ -116,7 +118,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } catch (e) {
     console.log(e);
   }
-}
+
 );
 
 profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
@@ -174,7 +176,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
   } catch (e) {
     next(e);
   }
-}
+
 );
 
 
@@ -230,3 +232,25 @@ profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFu
       next(e)
   }
 })
+
+
+profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFunction) => {
+  let trainer = req.params.trainer
+  try{
+      let associate = await getProfileByTrainerService(trainer)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+
+profileRouter.get('/trainer/current/:trainer', async (req:any, res:Response, next:NextFunction) => {
+  let trainer = req.params.trainer
+  try{
+      let associate = await getCurrentBatchassociatesForTrainerService(trainer)
+      res.json(associate)
+  } catch (e){
+      next(e)
+  }
+})
+
