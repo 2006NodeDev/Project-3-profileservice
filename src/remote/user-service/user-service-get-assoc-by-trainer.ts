@@ -1,5 +1,6 @@
 import { userServiceBaseClient } from ".";
 import {Associate} from '../../models/Associate'
+import { errorLogger, logger } from "../../utils/loggers";
 
 export const userserviceGetAssociateByTrainer = async (trainer:string):Promise<Associate[]> => {
     try{
@@ -8,7 +9,9 @@ export const userserviceGetAssociateByTrainer = async (trainer:string):Promise<A
         })
         return res.data
     }catch(e){
-        console.log(e);
+        errorLogger.error(e);
+        logger.error(e)
+        //console.log(e);
         throw (e)
     }
 }

@@ -1,5 +1,6 @@
 import { userServiceBaseClient } from ".";
 import {Associate} from '../../models/Associate'
+import { errorLogger, logger } from "../../utils/loggers";
 
 export const userserviceGetAssociateByYear = async (year:number):Promise<Associate[]> => {
     try{
@@ -11,7 +12,9 @@ export const userserviceGetAssociateByYear = async (year:number):Promise<Associa
         return res.data
         // return Promise.all(res.data.rows.map(associatetoProfileDTOConverter))
     }catch(e){
-        console.log(e);
+        errorLogger.error(e);
+        logger.error(e)
+        //console.log(e);
         throw (e)
     }
 }

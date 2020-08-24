@@ -1,5 +1,6 @@
 import { userServiceBaseClient } from ".";
 import {Associate} from '../../models/Associate'
+import { errorLogger, logger } from "../../utils/loggers";
 
 
 export const userServiceGetUserByEmail = async (email:string) => {
@@ -11,7 +12,9 @@ export const userServiceGetUserByEmail = async (email:string) => {
         })
         return res.data
     }catch(e){
-        console.log(e);
+        errorLogger.error(e);
+        logger.error(e)
+        //console.log(e);
         let defaultUser = new Associate()
         defaultUser.email = email
         return defaultUser
