@@ -1,7 +1,7 @@
 import { PoolClient, QueryResult } from "pg";
 import { Profile } from "../../models/Profile";
 import { connectionPool } from ".";
-
+import { logger, errorLogger } from "../../utils/loggers";
 import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
 
@@ -66,8 +66,6 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
   }
 
 }
-
-//import { logger, errorLogger } from "../../utils/logger";
 
 //create profile
 export async function createProfile(newProfile: Profile): Promise<Profile> {

@@ -34,7 +34,6 @@ profileRouter.get(
     }
 
   }
-}
 );
 
 //get profiles based on auth0Id
@@ -124,7 +123,6 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
     }
 
   }
-}
 );
 
 profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
@@ -190,7 +188,6 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     }
 
   }
-}
 );
 
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {

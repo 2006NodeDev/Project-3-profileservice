@@ -1,0 +1,306 @@
+[2020-08-24T10:50:40.441] [ERROR] error - Error: connect ECONNREFUSED 127.0.0.1:2006
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16) {
+  errno: 'ECONNREFUSED',
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 2006,
+  config: {
+    url: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+    method: 'get',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'User-Agent': 'axios/0.20.0'
+    },
+    baseURL: 'http://localhost:2006',
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    adapter: [Function: httpAdapter],
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    validateStatus: [Function: validateStatus],
+    data: undefined
+  },
+  request: Writable {
+    _writableState: WritableState {
+      objectMode: false,
+      highWaterMark: 16384,
+      finalCalled: false,
+      needDrain: false,
+      ending: false,
+      ended: false,
+      finished: false,
+      destroyed: false,
+      decodeStrings: true,
+      defaultEncoding: 'utf8',
+      length: 0,
+      writing: false,
+      corked: 0,
+      sync: true,
+      bufferProcessing: false,
+      onwrite: [Function: bound onwrite],
+      writecb: null,
+      writelen: 0,
+      afterWriteTickInfo: null,
+      bufferedRequest: null,
+      lastBufferedRequest: null,
+      pendingcb: 0,
+      prefinished: false,
+      errorEmitted: false,
+      emitClose: true,
+      autoDestroy: false,
+      bufferedRequestCount: 0,
+      corkedRequestsFree: [Object]
+    },
+    writable: true,
+    _events: [Object: null prototype] {
+      response: [Function: handleResponse],
+      error: [Function: handleRequestError]
+    },
+    _eventsCount: 2,
+    _maxListeners: undefined,
+    _options: {
+      maxRedirects: 21,
+      maxBodyLength: 10485760,
+      protocol: 'http:',
+      path: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+      method: 'GET',
+      headers: [Object],
+      agent: undefined,
+      agents: [Object],
+      auth: undefined,
+      hostname: 'localhost',
+      port: '2006',
+      nativeProtocols: [Object],
+      pathname: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com'
+    },
+    _ended: true,
+    _ending: true,
+    _redirectCount: 0,
+    _redirects: [],
+    _requestBodyLength: 0,
+    _requestBodyBuffers: [],
+    _onNativeResponse: [Function],
+    _currentRequest: ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 7,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      socket: [Socket],
+      connection: [Socket],
+      _header: 'GET /associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com HTTP/1.1\r\n' +
+        'Accept: application/json, text/plain, */*\r\n' +
+        'Content-Type: application/json\r\n' +
+        'User-Agent: axios/0.20.0\r\n' +
+        'Host: localhost:2006\r\n' +
+        'Connection: close\r\n' +
+        '\r\n',
+      _onPendingData: [Function: noopPendingOutput],
+      agent: [Agent],
+      socketPath: undefined,
+      method: 'GET',
+      insecureHTTPParser: undefined,
+      path: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+      _ended: false,
+      res: null,
+      aborted: false,
+      timeoutCb: null,
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      _redirectable: [Circular],
+      [Symbol(kCapture)]: false,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kOutHeaders)]: [Object: null prototype]
+    },
+    _currentUrl: 'http://localhost:2006/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+    [Symbol(kCapture)]: false
+  },
+  response: undefined,
+  isAxiosError: true,
+  toJSON: [Function: toJSON]
+}
+[2020-08-24T10:50:40.504] [ERROR] error - Error: connect ECONNREFUSED 127.0.0.1:2006
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1141:16) {
+  errno: 'ECONNREFUSED',
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 2006,
+  config: {
+    url: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+    method: 'get',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'User-Agent': 'axios/0.20.0'
+    },
+    baseURL: 'http://localhost:2006',
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    adapter: [Function: httpAdapter],
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    validateStatus: [Function: validateStatus],
+    data: undefined
+  },
+  request: Writable {
+    _writableState: WritableState {
+      objectMode: false,
+      highWaterMark: 16384,
+      finalCalled: false,
+      needDrain: false,
+      ending: false,
+      ended: false,
+      finished: false,
+      destroyed: false,
+      decodeStrings: true,
+      defaultEncoding: 'utf8',
+      length: 0,
+      writing: false,
+      corked: 0,
+      sync: true,
+      bufferProcessing: false,
+      onwrite: [Function: bound onwrite],
+      writecb: null,
+      writelen: 0,
+      afterWriteTickInfo: null,
+      bufferedRequest: null,
+      lastBufferedRequest: null,
+      pendingcb: 0,
+      prefinished: false,
+      errorEmitted: false,
+      emitClose: true,
+      autoDestroy: false,
+      bufferedRequestCount: 0,
+      corkedRequestsFree: [Object]
+    },
+    writable: true,
+    _events: [Object: null prototype] {
+      response: [Function: handleResponse],
+      error: [Function: handleRequestError]
+    },
+    _eventsCount: 2,
+    _maxListeners: undefined,
+    _options: {
+      maxRedirects: 21,
+      maxBodyLength: 10485760,
+      protocol: 'http:',
+      path: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+      method: 'GET',
+      headers: [Object],
+      agent: undefined,
+      agents: [Object],
+      auth: undefined,
+      hostname: 'localhost',
+      port: '2006',
+      nativeProtocols: [Object],
+      pathname: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com'
+    },
+    _ended: true,
+    _ending: true,
+    _redirectCount: 0,
+    _redirects: [],
+    _requestBodyLength: 0,
+    _requestBodyBuffers: [],
+    _onNativeResponse: [Function],
+    _currentRequest: ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 7,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      socket: [Socket],
+      connection: [Socket],
+      _header: 'GET /associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com HTTP/1.1\r\n' +
+        'Accept: application/json, text/plain, */*\r\n' +
+        'Content-Type: application/json\r\n' +
+        'User-Agent: axios/0.20.0\r\n' +
+        'Host: localhost:2006\r\n' +
+        'Connection: close\r\n' +
+        '\r\n',
+      _onPendingData: [Function: noopPendingOutput],
+      agent: [Agent],
+      socketPath: undefined,
+      method: 'GET',
+      insecureHTTPParser: undefined,
+      path: '/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+      _ended: false,
+      res: null,
+      aborted: false,
+      timeoutCb: null,
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      _redirectable: [Circular],
+      [Symbol(kCapture)]: false,
+      [Symbol(kNeedDrain)]: false,
+      [Symbol(corked)]: 0,
+      [Symbol(kOutHeaders)]: [Object: null prototype]
+    },
+    _currentUrl: 'http://localhost:2006/associates/batch/mock15.associate4b5555f4-09e9-4fcd-80a3-2cf532781543@mock.com',
+    [Symbol(kCapture)]: false
+  },
+  response: undefined,
+  isAxiosError: true,
+  toJSON: [Function: toJSON]
+}
+[2020-08-24T10:55:17.403] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:59:13)
+    at step (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-24T10:55:27.881] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:59:13)
+    at step (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
