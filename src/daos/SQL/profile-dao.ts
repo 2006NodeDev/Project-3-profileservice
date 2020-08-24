@@ -472,9 +472,8 @@ export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> 
 
   let client: PoolClient
   try {
-    let currUser = await getProfileById(auth0Id)
-    let currUserBatchID = currUser.batchId
-    let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(currUserBatchID)
+    let currUser = (await getProfileById(auth0Id)).batchId
+    let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(currUser)
 
     let emails = []
     for (var i in caliberAssociatesbyBatch) {
