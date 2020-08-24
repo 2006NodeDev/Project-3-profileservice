@@ -13,6 +13,7 @@ import {
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
 import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
+import { logger, errorLogger } from "../utils/loggers";
 //import { associatetoProfileDTOConverter } from "../utils/profile-dto-to-profile-skill-converter";
 //import { userServiceGetUserByEmail } from "../remote/user-service/user-service-get-assoc-by-email";
 
@@ -52,11 +53,12 @@ profileRouter.get(
   }
 );
 
+//get all the profiles of the associates in your batch
 profileRouter.get(
   "/batch/:auth0Id",
   async (req: Request, res: Response, next: NextFunction) => {
     let { auth0Id } = req.params;
-    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+
     try {
       let profile = await getBatchAssociatesById(auth0Id);
       res.json(profile);
@@ -101,7 +103,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
 
   //this is where authorization code would go- ensure userId matches or role matches
   //Not sure how we want to handle it so it's blank for now
-  
+
   let updatedProfile: Profile = {
     auth0Id,
     firstName,
@@ -140,6 +142,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   } catch (e) {
     console.log(e);
   }
+}
 );
 
 profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
@@ -197,7 +200,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
   } catch (e) {
     next(e);
   }
-
+}
 );
 
 
@@ -234,44 +237,44 @@ profileRouter.get('/skill/:skillname', async (req: any, res: Response, next: Nex
 })
 
 
-profileRouter.get('/year/:year', async (req:any, res:Response, next:NextFunction) => {
+profileRouter.get('/year/:year', async (req: any, res: Response, next: NextFunction) => {
   let year = req.params.year
-  try{
-      let associate = await getProfileByYearService(year)
-      res.json(associate)
-  } catch (e){
-      next(e)
+  try {
+    let associate = await getProfileByYearService(year)
+    res.json(associate)
+  } catch (e) {
+    next(e)
   }
 })
 
-profileRouter.get('/quarter/:quarter', async (req:any, res:Response, next:NextFunction) => {
+profileRouter.get('/quarter/:quarter', async (req: any, res: Response, next: NextFunction) => {
   let quarter = req.params.quarter
-  try{
-      let associate = await getProfileByQuarterService(quarter)
-      res.json(associate)
-  } catch (e){
-      next(e)
+  try {
+    let associate = await getProfileByQuarterService(quarter)
+    res.json(associate)
+  } catch (e) {
+    next(e)
   }
 })
 
 
-profileRouter.get('/trainer/:trainer', async (req:any, res:Response, next:NextFunction) => {
+profileRouter.get('/trainer/:trainer', async (req: any, res: Response, next: NextFunction) => {
   let trainer = req.params.trainer
-  try{
-      let associate = await getProfileByTrainerService(trainer)
-      res.json(associate)
-  } catch (e){
-      next(e)
+  try {
+    let associate = await getProfileByTrainerService(trainer)
+    res.json(associate)
+  } catch (e) {
+    next(e)
   }
 })
 
-profileRouter.get('/trainer/current/:trainer', async (req:any, res:Response, next:NextFunction) => {
+profileRouter.get('/trainer/current/:trainer', async (req: any, res: Response, next: NextFunction) => {
   let trainer = req.params.trainer
-  try{
-      let associate = await getCurrentBatchassociatesForTrainerService(trainer)
-      res.json(associate)
-  } catch (e){
-      next(e)
+  try {
+    let associate = await getCurrentBatchassociatesForTrainerService(trainer)
+    res.json(associate)
+  } catch (e) {
+    next(e)
   }
 })
 

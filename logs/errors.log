@@ -910,3 +910,39 @@
   isAxiosError: true,
   toJSON: [Function]
 }
+[2020-08-24T15:03:43.656] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:494:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[2020-08-24T15:03:43.824] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:494:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[2020-08-24T15:08:38.358] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:490:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.throw (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at rejected (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[2020-08-24T15:08:38.368] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:490:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.throw (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at rejected (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[2020-08-24T15:09:22.926] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:490:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.throw (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at rejected (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[2020-08-24T15:09:22.943] [ERROR] error - Error: This error can't be handled
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:490:11)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.throw (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at rejected (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:6:65)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
