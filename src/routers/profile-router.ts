@@ -119,7 +119,8 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
 }
 );
 
-profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
+
   console.log(req.body); //lets look at what the request body looks like
   let {
     auth0Id,

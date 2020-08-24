@@ -79,9 +79,12 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     client = await connectionPool.connect();
     await client.query("BEGIN;");
 
+
+    //"batch_id",
+    //, $13
     let results = await client.query(
-      `insert into ${schema}.profiles("auth0_user_id", "email", "batch_id", "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
-                              values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      `insert into ${schema}.profiles("auth0_user_id", "email",  "nickname", "pronouns", "hobbies", "fav_foods", "special_trait", "degree", "fav_language", "relevant_skills", "introvert", "study_group")
+                              values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                               returning *`,
       [
         newProfile.auth0Id,
@@ -297,8 +300,6 @@ export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
   }
 }
 
-
-
 export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[]> {
   //first, decleare a client
   let client: PoolClient;
@@ -385,7 +386,6 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
   }
 }
 
-
 export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
 
   let client: PoolClient
@@ -407,5 +407,4 @@ export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
   } finally {
     client && client.release()
   }
-
 }
