@@ -1,4 +1,5 @@
 import { userServiceBaseClient } from ".";
+import { logger, errorLogger } from "../../utils/loggers";
 
 
 export const userServiceGetBatchByAssociate = async (email:string) => {
@@ -9,7 +10,9 @@ export const userServiceGetBatchByAssociate = async (email:string) => {
         })
         return res.data
     }catch(e){
-        console.log(e);
+        errorLogger.error(e);
+        logger.error(e)
+        //console.log(e);
         throw e
     }
 }

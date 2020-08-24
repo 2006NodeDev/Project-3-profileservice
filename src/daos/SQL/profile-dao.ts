@@ -52,6 +52,8 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
       throw new Error('NotFound')
     } else {
       let res = await profileDTOtoProfileConverter(results.rows[0])
+      logger.debug("dto result: " + res)
+      //console.log("dto result: " + res)
       return res
     }
   } catch (e) {
@@ -102,7 +104,9 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
     }
   } catch (error) {
     client && client.query("ROLLBACK;");
-    console.log(error);
+    errorLogger.error(error);
+    logger.error(error)
+    //console.log(error);
     throw new ProfileNotFoundError()
   } finally {
     client?.release();
@@ -182,7 +186,9 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
         [updatedProfile.studyGroup, updatedProfile.auth0Id]
       );
     }
-    console.log("about to commit");
+    logger.debug("about to commit");
+    //console.log("about to commit");
+    
     await client.query("COMMIT;"); //ends the transaction
 
     //below is just a placeholder, will edit when get profile is done
@@ -240,7 +246,9 @@ export async function getAllProfilesBySkill(skillName: string): Promise<Profile[
 
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
     throw new Error("This error can't be handled");
   } finally {
     //let the connection go back to the pool
@@ -285,7 +293,9 @@ export async function getAllProfilesByYear(year: number): Promise<Profile[]> {
 
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
     throw new Error("This error can't be handled");
   } finally {
     //let the connection go back to the pool
@@ -327,7 +337,9 @@ export async function getAllProfilesByQuarter(quarter: number): Promise<Profile[
 
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
     throw new Error("This error can't be handled");
   } finally {
     //let the connection go back to the pool
@@ -348,7 +360,8 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
     for (var i in caliberUsersbyTrainer) {
       emails.push(caliberUsersbyTrainer[i].email)
     }
-    console.log(emails)
+    logger.debug(emails)
+    //console.log(emails)
 
     let filter_res = []
 
@@ -370,7 +383,9 @@ export async function getAllProfilesByTrainer(trainer: string): Promise<Profile[
 
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
 
     throw new Error("This error can't be handled");
   } finally {
@@ -393,7 +408,8 @@ export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<P
     for (var i in caliberUsersbyTrainer) {
       emails.push(caliberUsersbyTrainer[i].email)
     }
-    console.log(emails)
+    logger.debug(emails)
+    //console.log(emails)
 
     let filter_res = []
 
@@ -415,7 +431,9 @@ export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<P
 
   } catch (e) {
     //if we get an error we don't know
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
 
     throw new Error("This error can't be handled");
   } finally {
@@ -440,7 +458,9 @@ export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
     if (e.message === "NotFound") {
       throw new ProfileNotFoundError
     }
-    console.log(e);
+    //console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
     throw new Error("This error can't be handled")
   } finally {
     client && client.release()
@@ -484,7 +504,9 @@ export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> 
     if (e.message === "NotFound") {
       throw new ProfileNotFoundError
     }
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
     throw new Error("This error can't be handled")
   } finally {
     client && client.release()

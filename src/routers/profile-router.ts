@@ -33,6 +33,7 @@ profileRouter.get(
       logger.debug(allProfiles)
     } catch (e) {
       errorLogger.error(e);
+      logger.error(e)
       next(e);
     }
   }
@@ -48,6 +49,8 @@ profileRouter.get(
       let profile = await getProfileByIdService(auth0Id);
       res.json(profile);
     } catch (e) {
+      errorLogger.error(e);
+      logger.error(e)
       next(e);
     }
   }
@@ -77,10 +80,12 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   let { auth0Id } = req.params
 
   let user_profile = await getProfileByIdService(auth0Id)
-  console.log(user_profile.email)
+  logger.debug(user_profile.email)
+  //console.log(user_profile.email)
 
   let batchId = await userServiceGetUserByEmail(user_profile.email)
-  console.log(batchId)
+  logger.debug(batchId)
+  //console.log(batchId)
 
 
   let {
@@ -134,13 +139,16 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   updatedProfile.introvert = introvert || undefined;
   updatedProfile.studyGroup = studyGroup || undefined;
 
-  console.log(updatedProfile);
+  logger.debug(updatedProfile);
+  //console.log(updatedProfile);
   try {
     let results = await UpdateProfileService(updatedProfile);
     console.log("we have updated profile now to insert in db");
     res.json(results);
   } catch (e) {
-    console.log(e);
+    errorLogger.error(e);
+    logger.error(e)
+    //console.log(e);
   }
 }
 );
