@@ -9,6 +9,7 @@ import {
   getAllProfilesByYear,
   getAllProfilesByQuarter,
   getAllProfilesByTrainer,
+  getBatchProfilesById,
 } from "../daos/SQL/profile-dao";
 //import { getAssociateBySkillName } from "../remote/user-service/user-service-get-assoc-by-skill-name";
 
@@ -47,3 +48,7 @@ export async function getProfileByTrainerService(trainer: string): Promise<Profi
   return await getAllProfilesByTrainer(trainer); 
 }
 
+//getProfileByQuarterService
+export async function getBatchAssociatesById(auth0Id: string): Promise<Profile[]> {
+  return await getBatchProfilesById(auth0Id); 
+}

@@ -7,6 +7,7 @@ import {
   getProfileByYearService,
   getProfileByQuarterService,
   getProfileByTrainerService,
+  getBatchAssociatesById,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -32,9 +33,8 @@ profileRouter.get(
       errorLogger.error(e);
       next(e);
     }
-
   }
-}
+
 );
 
 //get profiles based on auth0Id
@@ -45,6 +45,22 @@ profileRouter.get(
     //since text, idk what to test for to ensure input accuracy (can't use NaN)
     try {
       let profile = await getProfileByIdService(auth0Id);
+      res.json(profile);
+      logger.debug(profile)
+    } catch (e) {
+      errorLogger.error(e);
+      next(e);
+    }
+  }
+);
+
+profileRouter.get(
+  "/batch/:auth0Id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    let { auth0Id } = req.params;
+    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+    try {
+      let profile = await getBatchAssociatesById(auth0Id);
       res.json(profile);
       logger.debug(profile)
     } catch (e) {
@@ -124,7 +140,6 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
     }
 
   }
-}
 );
 
 profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) => {
@@ -190,7 +205,6 @@ profileRouter.post("/", async (req: Request, res: Response, next: NextFunction) 
     }
 
   }
-}
 );
 
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {

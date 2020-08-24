@@ -10,7 +10,10 @@ import { ProfileDTO } from "../../dtos/profile-dto";
 import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
-// import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
+//import { userServiceBaseClient } from "../../remote/user-service";
+import { userserviceGetAssociateByBatch } from "../../remote/user-service/user-service-get-assoc-by-batch";
+import { logger, errorLogger } from "../../utils/loggers";
+//import { associatetoProfileDTOConverter } from "../../utils/profile-dto-to-profile-skill-converter";
 
 const schema = process.env['P3_SCHEMA'] || 'project_3_profile_service'
 
@@ -395,6 +398,50 @@ export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
     return results.rows[0]
     // }
   } catch (e) {
+    if (e.message === "NotFound") {
+      throw new ProfileNotFoundError
+    }
+    console.log(e);
+    throw new Error("This error can't be handled")
+  } finally {
+    client && client.release()
+  }
+
+}
+
+export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> {
+
+  let client: PoolClient
+  try {
+  let user = await getProfileById(auth0Id)
+  let userBatch = user.batchId
+  let caliberAssociatesbyBatch = await userserviceGetAssociateByBatch(userBatch)
+
+  let emails = []
+  for (var i in caliberAssociatesbyBatch) {
+    emails.push(caliberAssociatesbyBatch[i].email)
+  }
+
+  let filter_res = []
+
+    await client.query("BEGIN;")
+
+    for (var i in emails) {
+      let result: QueryResult = await client.query(
+        `select * from ${schema}.profiles p where p.email = $1;`, [emails[i]]
+      );
+      if (result.rows[0]) {
+        filter_res.push(result.rows[0])
+      }
+    }
+
+    await client.query("COMMIT;");
+
+    //return ProfileDTO-s
+     return Promise.all(filter_res.map(profileDTOtoProfileConverter));
+
+
+} catch (e) {
     if (e.message === "NotFound") {
       throw new ProfileNotFoundError
     }
