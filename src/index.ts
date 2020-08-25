@@ -13,10 +13,9 @@ app.use(bodyParser.json());
 app.use(express.json())
 
 app.use(corsFilter)
-const basePath = '/profile-service' || '' 
+const basePath = process.env['PS_BASE_PATH'] || '/profile-service' 
 const basePathRouter = express.Router();
 app.use(basePath, basePathRouter);
-
 basePathRouter.use("/profiles", profileRouter)
 
 //health check! for load balancer and build
