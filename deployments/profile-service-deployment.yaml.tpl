@@ -40,7 +40,7 @@ spec:
                   name: secrets
                   key: password
           ports:
-            - containerPort: 2007
+          - containerPort: 2007
           livenessProbe:
             httpGet:
               path: /health
