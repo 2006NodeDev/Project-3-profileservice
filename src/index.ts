@@ -8,13 +8,16 @@ const app = express()
 //our application from express
 app.use(bodyParser.json());
 // app.use(cors());
-app.use("/profiles", profileRouter);
+// app.use("/profiles", profileRouter);
 
 app.use(express.json())
 
 app.use(corsFilter)
+const basePath = '/profile-service' || '' 
+const basePathRouter = express.Router();
+app.use(basePath, basePathRouter);
 
-app.use("/profiles", profileRouter)
+basePathRouter.use("/profiles", profileRouter)
 
 //health check! for load balancer and build
 app.get('/health', (req: Request, res: Response) => {
