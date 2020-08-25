@@ -1,6 +1,8 @@
 export class Profile {
     auth0Id:string;
-    caliberId: string;
+    firstName:string;
+    lastName:string;
+    email: string;
     batchId: string;
     nickname: string;
     pronouns: string;

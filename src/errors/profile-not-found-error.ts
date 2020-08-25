@@ -1,4 +1,4 @@
-import { HttpError } from "./Http-Error";
+import { HttpError } from "./http-error";
 
 export class ProfileNotFoundError extends HttpError{
     constructor(){
