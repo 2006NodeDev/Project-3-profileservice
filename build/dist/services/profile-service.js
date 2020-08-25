@@ -36,8 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProfileService = exports.UpdateProfileService = exports.getProfileByIdService = exports.getAllProfilesService = void 0;
+exports.getCurrentBatchassociatesForTrainerService = exports.getBatchAssociatesById = exports.getProfileByTrainerService = exports.getProfileByQuarterService = exports.getProfileByYearService = exports.getProfileBySkillNameService = exports.CreateProfileService = exports.UpdateProfileService = exports.getProfileByIdService = exports.getAllProfilesService = void 0;
 var profile_dao_1 = require("../daos/SQL/profile-dao");
+//import { getAssociateBySkillName } from "../remote/user-service/user-service-get-assoc-by-skill-name";
+//do we want to add loggging to this layer?  If so, where?
 function getAllProfilesService() {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -47,7 +49,7 @@ function getAllProfilesService() {
             }
         });
     });
-} //not currently actually using this, just an example
+}
 exports.getAllProfilesService = getAllProfilesService;
 function getProfileByIdService(auth0Id) {
     return __awaiter(this, void 0, void 0, function () {
@@ -82,4 +84,72 @@ function CreateProfileService(profile) {
     });
 }
 exports.CreateProfileService = CreateProfileService;
+function getProfileBySkillNameService(skill) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getAllProfilesBySkill(skill)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getProfileBySkillNameService = getProfileBySkillNameService;
+function getProfileByYearService(year) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getAllProfilesByYear(year)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getProfileByYearService = getProfileByYearService;
+function getProfileByQuarterService(quarter) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getAllProfilesByQuarter(quarter)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getProfileByQuarterService = getProfileByQuarterService;
+//getProfileByQuarterService
+function getProfileByTrainerService(trainer) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getAllProfilesByTrainer(trainer)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getProfileByTrainerService = getProfileByTrainerService;
+//getProfileByQuarterService
+function getBatchAssociatesById(auth0Id) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getBatchProfilesById(auth0Id)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getBatchAssociatesById = getBatchAssociatesById;
+function getCurrentBatchassociatesForTrainerService(trainer) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, profile_dao_1.getAllCurrentProfilesByTrainer(trainer)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+exports.getCurrentBatchassociatesForTrainerService = getCurrentBatchassociatesForTrainerService;
 //# sourceMappingURL=profile-service.js.map
