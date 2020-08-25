@@ -33,7 +33,7 @@ spec:
             - name: BASE_PATH
               value: "/profile-service"
             - name: USER_SERVICE_HOST
-              value: "http://user-service-service:2006/profile-service"
+              value: "http://user-service-service:2006/user-service"
             - name: PG_PASSWORD
               valueFrom:
                 secretKeyRef:
