@@ -150,8 +150,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
     logger.error(e)
     //console.log(e);
   }
-}
-);
+});
 
 profileRouter.post('/createprofile', async (req: Request, res: Response, next: NextFunction) => {
 
@@ -208,8 +207,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
   } catch (e) {
     next(e);
   }
-}
-);
+});
 
 
 profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {

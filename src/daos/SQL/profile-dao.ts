@@ -69,7 +69,6 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
 
 }
 
-
 //create profile
 export async function createProfile(newProfile: Profile): Promise<Profile> {
   let client: PoolClient;
