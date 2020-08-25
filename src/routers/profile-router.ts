@@ -22,11 +22,7 @@ export const profileRouter = express.Router();
 //no middleware set up yet
 
 //get all profiles
-
-
-profileRouter.get(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.get("/", async (req:Request, res: Response, next: NextFunction)=>{
     try {
       let allProfiles = await getAllProfilesService();
       res.json(allProfiles);
