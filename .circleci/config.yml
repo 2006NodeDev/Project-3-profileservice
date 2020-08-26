@@ -16,11 +16,6 @@ jobs:
             npm install
       - run: 
           working_directory: ~/project
-          name: Test
-          command: |
-            npm test
-      - run: 
-          working_directory: ~/project
           name: Build
           command: |
             npm run build
