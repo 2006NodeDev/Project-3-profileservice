@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/remote/user-service/index.ts"],"names":[],"mappings":";;;;;;AAAA,gDAA0B;AAE1B,uDAAuD;AACvD,IAAI,OAAO,GAAG,oCAAoC,CAAC,CAAC,yCAAyC;AAEhF,QAAA,qBAAqB,GAAG,eAAK,CAAC,MAAM,CAAC;IAChD,OAAO,SAAA;IACP,OAAO,EAAE;QACP,cAAc,EAAE,kBAAkB;KACnC;CACF,CAAC,CAAC"}

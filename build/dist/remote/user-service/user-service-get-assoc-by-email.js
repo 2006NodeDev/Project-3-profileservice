@@ -36,40 +36,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.profileDTOtoProfileConverter = void 0;
-var user_service_get_assoc_by_email_1 = require("../remote/user-service/user-service-get-assoc-by-email");
-var user_service_get_batch_by_assoc_1 = require("../remote/user-service/user-service-get-batch-by-assoc");
-function profileDTOtoProfileConverter(dto) {
-    return __awaiter(this, void 0, void 0, function () {
-        var assoc, batch;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, user_service_get_assoc_by_email_1.userServiceGetUserByEmail(dto.email)];
-                case 1:
-                    assoc = _a.sent();
-                    return [4 /*yield*/, user_service_get_batch_by_assoc_1.userServiceGetBatchByAssociate(dto.email)];
-                case 2:
-                    batch = _a.sent();
-                    return [2 /*return*/, {
-                            auth0Id: dto.auth0_user_id,
-                            firstName: assoc.firstName,
-                            lastName: assoc.lastName,
-                            email: dto.email,
-                            batchId: batch,
-                            nickname: dto.nickname,
-                            pronouns: dto.pronouns,
-                            hobbies: dto.hobbies,
-                            favFoods: dto.fav_foods,
-                            specialTrait: dto.special_trait,
-                            degree: dto.degree,
-                            favLangauge: dto.fav_language,
-                            relevantSkills: dto.relevant_skills,
-                            introvert: dto.introvert,
-                            studyGroup: dto.study_group
-                        }];
-            }
-        });
+exports.userServiceGetUserByEmail = void 0;
+var _1 = require(".");
+var Associate_1 = require("../../models/Associate");
+var loggers_1 = require("../../utils/loggers");
+exports.userServiceGetUserByEmail = function (email) { return __awaiter(void 0, void 0, void 0, function () {
+    var res, e_1, defaultUser;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, _1.userServiceBaseClient.get("/associates/" + email, {
+                    // headers:{
+                    //     'Authorization': token
+                    // }
+                    })];
+            case 1:
+                res = _a.sent();
+                return [2 /*return*/, res.data];
+            case 2:
+                e_1 = _a.sent();
+                loggers_1.errorLogger.error(e_1);
+                loggers_1.logger.error(e_1);
+                defaultUser = new Associate_1.Associate();
+                defaultUser.email = email;
+                return [2 /*return*/, defaultUser];
+            case 3: return [2 /*return*/];
+        }
     });
-}
-exports.profileDTOtoProfileConverter = profileDTOtoProfileConverter;
-//# sourceMappingURL=profile-dto-to-profile-converter.js.map
+}); };
+//# sourceMappingURL=user-service-get-assoc-by-email.js.map
