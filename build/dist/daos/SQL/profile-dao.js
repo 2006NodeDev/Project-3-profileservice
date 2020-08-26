@@ -144,7 +144,7 @@ function createProfile(newProfile) {
                             newProfile.favFoods,
                             newProfile.specialTrait,
                             newProfile.degree,
-                            newProfile.favLangauge,
+                            newProfile.favLanguage,
                             newProfile.relevantSkills,
                             newProfile.introvert,
                             newProfile.studyGroup,
@@ -232,8 +232,8 @@ function UpdateProfile(updatedProfile) {
                     _a.sent();
                     _a.label = 16;
                 case 16:
-                    if (!updatedProfile.favLangauge) return [3 /*break*/, 18];
-                    return [4 /*yield*/, client.query("update " + schema + ".profiles set \"fav_language\" = $1 where \"auth0_user_id\" = $2;", [updatedProfile.favLangauge, updatedProfile.auth0Id])];
+                    if (!updatedProfile.favLanguage) return [3 /*break*/, 18];
+                    return [4 /*yield*/, client.query("update " + schema + ".profiles set \"fav_language\" = $1 where \"auth0_user_id\" = $2;", [updatedProfile.favLanguage, updatedProfile.auth0Id])];
                 case 17:
                     _a.sent();
                     _a.label = 18;

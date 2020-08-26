@@ -124,7 +124,7 @@ exports.profileRouter.get("/batch/:auth0Id", function (req, res, next) { return 
 //update profile
 //authorizationMiddleware has not been created and may not be necessary
 exports.profileRouter.patch('/:auth0Id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var auth0Id, user_profile, batchId, _a, firstName, lastName, email, nickname, pronouns, hobbies, favFoods, specialTrait, degree, favLangauge, relevantSkills, introvert, studyGroup, updatedProfile, results, e_4;
+    var auth0Id, user_profile, batchId, _a, firstName, lastName, email, nickname, pronouns, hobbies, favFoods, specialTrait, degree, favLanguage, relevantSkills, introvert, studyGroup, updatedProfile, results, e_4;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -137,7 +137,7 @@ exports.profileRouter.patch('/:auth0Id', function (req, res, next) { return __aw
             case 2:
                 batchId = _b.sent();
                 loggers_1.logger.debug(batchId);
-                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, nickname = _a.nickname, pronouns = _a.pronouns, hobbies = _a.hobbies, favFoods = _a.favFoods, specialTrait = _a.specialTrait, degree = _a.degree, favLangauge = _a.favLangauge, relevantSkills = _a.relevantSkills, introvert = _a.introvert, studyGroup = _a.studyGroup;
+                _a = req.body, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, nickname = _a.nickname, pronouns = _a.pronouns, hobbies = _a.hobbies, favFoods = _a.favFoods, specialTrait = _a.specialTrait, degree = _a.degree, favLanguage = _a.favLanguage, relevantSkills = _a.relevantSkills, introvert = _a.introvert, studyGroup = _a.studyGroup;
                 updatedProfile = {
                     auth0Id: auth0Id,
                     firstName: firstName,
@@ -150,7 +150,7 @@ exports.profileRouter.patch('/:auth0Id', function (req, res, next) { return __aw
                     favFoods: favFoods,
                     specialTrait: specialTrait,
                     degree: degree,
-                    favLangauge: favLangauge,
+                    favLanguage: favLanguage,
                     relevantSkills: relevantSkills,
                     introvert: introvert,
                     studyGroup: studyGroup,
@@ -162,7 +162,7 @@ exports.profileRouter.patch('/:auth0Id', function (req, res, next) { return __aw
                 updatedProfile.favFoods = favFoods || undefined;
                 updatedProfile.specialTrait = specialTrait || undefined;
                 updatedProfile.degree = degree || undefined;
-                updatedProfile.favLangauge = favLangauge || undefined;
+                updatedProfile.favLanguage = favLanguage || undefined;
                 updatedProfile.relevantSkills = relevantSkills || undefined;
                 updatedProfile.introvert = introvert || undefined;
                 updatedProfile.studyGroup = studyGroup || undefined;
@@ -186,12 +186,12 @@ exports.profileRouter.patch('/:auth0Id', function (req, res, next) { return __aw
     });
 }); });
 exports.profileRouter.post('/createprofile', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, auth0Id, firstName, lastName, email, batchId, nickname, pronouns, hobbies, favFoods, specialTrait, degree, favLangauge, relevantSkills, introvert, studyGroup, createProfile, results, e_5;
+    var _a, auth0Id, firstName, lastName, email, batchId, nickname, pronouns, hobbies, favFoods, specialTrait, degree, favLanguage, relevantSkills, introvert, studyGroup, createProfile, results, e_5;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 console.log(req.body); //lets look at what the request body looks like
-                _a = req.body, auth0Id = _a.auth0Id, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, batchId = _a.batchId, nickname = _a.nickname, pronouns = _a.pronouns, hobbies = _a.hobbies, favFoods = _a.favFoods, specialTrait = _a.specialTrait, degree = _a.degree, favLangauge = _a.favLangauge, relevantSkills = _a.relevantSkills, introvert = _a.introvert, studyGroup = _a.studyGroup;
+                _a = req.body, auth0Id = _a.auth0Id, firstName = _a.firstName, lastName = _a.lastName, email = _a.email, batchId = _a.batchId, nickname = _a.nickname, pronouns = _a.pronouns, hobbies = _a.hobbies, favFoods = _a.favFoods, specialTrait = _a.specialTrait, degree = _a.degree, favLanguage = _a.favLanguage, relevantSkills = _a.relevantSkills, introvert = _a.introvert, studyGroup = _a.studyGroup;
                 createProfile = {
                     auth0Id: auth0Id,
                     firstName: firstName,
@@ -204,7 +204,7 @@ exports.profileRouter.post('/createprofile', function (req, res, next) { return 
                     favFoods: favFoods,
                     specialTrait: specialTrait,
                     degree: degree,
-                    favLangauge: favLangauge,
+                    favLanguage: favLanguage,
                     relevantSkills: relevantSkills,
                     introvert: introvert,
                     studyGroup: studyGroup,
@@ -214,7 +214,7 @@ exports.profileRouter.post('/createprofile', function (req, res, next) { return 
                 createProfile.favFoods = favFoods;
                 createProfile.specialTrait = specialTrait;
                 createProfile.degree = degree;
-                createProfile.favLangauge = favLangauge;
+                createProfile.favLanguage = favLanguage;
                 createProfile.relevantSkills = relevantSkills;
                 createProfile.introvert = introvert;
                 createProfile.studyGroup = studyGroup;
