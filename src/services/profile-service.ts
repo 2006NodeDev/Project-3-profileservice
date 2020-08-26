@@ -11,6 +11,7 @@ import {
   getAllProfilesByTrainer,
   getBatchProfilesById,
   getAllCurrentProfilesByTrainer,
+  getProfileByEmail,
 } from "../daos/SQL/profile-dao";
 //import { getAssociateBySkillName } from "../remote/user-service/user-service-get-assoc-by-skill-name";
 
@@ -41,6 +42,10 @@ export async function getProfileByYearService(year: number): Promise<Profile[]> 
 
  export async function getProfileByQuarterService(quarter: number): Promise<Profile[]> {
   return await getAllProfilesByQuarter(quarter); 
+}
+
+export async function getProfileByEmailService(email: string): Promise<Profile> {
+  return await getProfileByEmail(email); 
 }
 
 //getProfileByQuarterService

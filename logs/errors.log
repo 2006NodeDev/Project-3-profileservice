@@ -104949,3 +104949,123 @@
   isAxiosError: true,
   toJSON: [Function: toJSON]
 }
+[2020-08-26T11:53:41.463] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T11:55:26.691] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T11:55:46.810] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T11:55:57.331] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T11:57:38.207] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T11:59:50.391] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:00:05.718] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:02:07.630] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:02:13.256] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:02:55.828] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:03:35.774] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
+[2020-08-26T12:06:16.344] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:60:13)
+    at step (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\chris\Documents\Revature\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}

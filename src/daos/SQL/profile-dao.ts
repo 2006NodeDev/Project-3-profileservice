@@ -4,7 +4,6 @@ import { connectionPool } from ".";
 import { profileDTOtoProfileConverter } from "../../utils/profile-dto-to-profile-converter";
 import { ProfileNotFoundError } from "../../errors/profile-not-found-error";
 import { userserviceGetAssociateBySkillName } from "../../remote/user-service/user-service-get-assoc-by-skill-name";
-import { ProfileDTO } from "../../dtos/profile-dto";
 import { userserviceGetAssociateByYear } from "../../remote/user-service/user-service-get-assoc-by-year";
 import { userserviceGetAssociateByQuarter } from "../../remote/user-service/user-service-get-assoc-by-quarter";
 import { userserviceGetAssociateByTrainer } from "../../remote/user-service/user-service-get-assoc-by-trainer";
@@ -54,6 +53,37 @@ export async function getProfileById(auth0Id: string): Promise<Profile> {
       let res = await profileDTOtoProfileConverter(results.rows[0])
       logger.debug("dto result: " + res)
       //console.log("dto result: " + res)
+      return res
+    }
+  } catch (e) {
+    if (e.message === "NotFound") {
+      throw new ProfileNotFoundError
+    }
+    logger.error(e);
+    errorLogger.error(e)
+    throw new Error("This error can't be handled")
+  } finally {
+    client && client.release()
+  }
+
+}
+
+
+
+export async function getProfileByEmail(email: string): Promise<Profile> {
+  console.log(email)
+  let client: PoolClient
+  try {
+    client = await connectionPool.connect()
+    let results: QueryResult = await client.query(`select * from ${schema}.profiles p 
+                                                    where p.email = $1;`, [email])
+    console.log(results.rowCount)
+    if (results.rowCount === 0) {
+      throw new Error('NotFound')
+    } else {
+      let res = await profileDTOtoProfileConverter(results.rows[0])
+      logger.debug("dto result: " + res)
+      console.log("dto result: " + res)
       return res
     }
   } catch (e) {
@@ -441,31 +471,31 @@ export async function getAllCurrentProfilesByTrainer(trainer: string): Promise<P
   }
 }
 
-export async function getProfileByEmail(email: string): Promise<ProfileDTO> {
+// export async function getProfileByEmail(email: string): Promise<Profile> {
 
-  let client: PoolClient
-  try {
-    client = await connectionPool.connect()
-    let results: QueryResult = await client.query(`select * from ${schema}.profiles p 
-                                                    where p.email = $1;`, [email])
-    // if (results.rowCount === 0) {
-    //   throw new Error('NotFound')
-    // } else {
-    return results.rows[0]
-    // }
-  } catch (e) {
-    if (e.message === "NotFound") {
-      throw new ProfileNotFoundError
-    }
-    //console.log(e);
-    errorLogger.error(e);
-    logger.error(e)
-    throw new Error("This error can't be handled")
-  } finally {
-    client && client.release()
-  }
+//   let client: PoolClient
+//   try {
+//     client = await connectionPool.connect()
+//     let results: QueryResult = await client.query(`select * from ${schema}.profiles p 
+//                                                     where p.email = $1;`, [email])
+//     // if (results.rowCount === 0) {
+//     //   throw new Error('NotFound')
+//     // } else {
+//     return results.rows[0]
+//     // }
+//   } catch (e) {
+//     if (e.message === "NotFound") {
+//       throw new ProfileNotFoundError
+//     }
+//     //console.log(e);
+//     errorLogger.error(e);
+//     logger.error(e)
+//     throw new Error("This error can't be handled")
+//   } finally {
+//     client && client.release()
+//   }
 
-}
+// }
 
 export async function getBatchProfilesById(auth0Id: string): Promise<Profile[]> {
 

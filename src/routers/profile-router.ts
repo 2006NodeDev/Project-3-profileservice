@@ -9,6 +9,7 @@ import {
   getProfileByTrainerService,
   getBatchAssociatesById,
   getCurrentBatchassociatesForTrainerService,
+  getProfileByEmailService,
 } from "../services/profile-service";
 import express, { Request, Response, NextFunction } from "express";
 import { Profile } from "../models/Profile";
@@ -47,6 +48,25 @@ profileRouter.get(
     //since text, idk what to test for to ensure input accuracy (can't use NaN)
     try {
       let profile = await getProfileByIdService(auth0Id);
+      res.json(profile);
+    } catch (e) {
+      errorLogger.error(e);
+      logger.error(e)
+      next(e);
+    }
+  }
+);
+
+
+profileRouter.get(
+  "/email/:email",
+  async (req: Request, res: Response, next: NextFunction) => {
+    let email  = req.params.email;
+    console.log(email)
+    
+    //since text, idk what to test for to ensure input accuracy (can't use NaN)
+    try {
+      let profile = await getProfileByEmailService(email);
       res.json(profile);
     } catch (e) {
       errorLogger.error(e);
@@ -210,19 +230,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
 });
 
 
-profileRouter.get("/email/:email", async (req: Request, res: Response, next: NextFunction) => {
-  let { email } = req.params;
-  //since text, idk what to test for to ensure input accuracy (can't use NaN)
-  try {
-    let associate = await userServiceGetUserByEmail(email);
 
-    res.json(associate);
-
-  } catch (e) {
-    next(e);
-  }
-}
-);
 
 /*
  for (var i in batchList){
