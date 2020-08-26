@@ -105018,3 +105018,14 @@
     at processTicksAndRejections (internal/process/task_queues.js:97:5) {
   statusCode: 404
 }
+[2020-08-26T11:30:23.253] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:61:13)
+    at step (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}
