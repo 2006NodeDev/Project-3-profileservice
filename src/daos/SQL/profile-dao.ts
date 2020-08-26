@@ -89,7 +89,7 @@ export async function createProfile(newProfile: Profile): Promise<Profile> {
         newProfile.favFoods,
         newProfile.specialTrait,
         newProfile.degree,
-        newProfile.favLangauge,
+        newProfile.favLanguage,
         newProfile.relevantSkills,
         newProfile.introvert,
         newProfile.studyGroup,
@@ -161,10 +161,10 @@ export async function UpdateProfile(updatedProfile: Profile): Promise<Profile> {
         [updatedProfile.degree, updatedProfile.auth0Id]
       );
     }
-    if (updatedProfile.favLangauge) {
+    if (updatedProfile.favLanguage) {
       await client.query(
         `update ${schema}.profiles set "fav_language" = $1 where "auth0_user_id" = $2;`,
-        [updatedProfile.favLangauge, updatedProfile.auth0Id]
+        [updatedProfile.favLanguage, updatedProfile.auth0Id]
       );
     }
     if (updatedProfile.relevantSkills) {
