@@ -1,6 +1,8 @@
 export class Profile {
     auth0Id:string;
-    caliberId: string;
+    firstName:string;
+    lastName:string;
+    email: string;
     batchId: string;
     nickname: string;
     pronouns: string;
@@ -8,7 +10,7 @@ export class Profile {
     favFoods: string;
     specialTrait: string;
     degree: string;
-    favLangauge: string;
+    favLanguage: string;
     relevantSkills: string;
     introvert: Boolean;
     studyGroup: Boolean;
