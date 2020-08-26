@@ -62,7 +62,7 @@ function profileDTOtoProfileConverter(dto) {
                             favFoods: dto.fav_foods,
                             specialTrait: dto.special_trait,
                             degree: dto.degree,
-                            favLangauge: dto.fav_language,
+                            favLanguage: dto.fav_language,
                             relevantSkills: dto.relevant_skills,
                             introvert: dto.introvert,
                             studyGroup: dto.study_group
