@@ -104949,3 +104949,72 @@
   isAxiosError: true,
   toJSON: [Function: toJSON]
 }
+[2020-08-26T00:56:19.018] [ERROR] error - error: null value in column "auth0_user_id" violates not-null constraint
+    at Parser.parseErrorMessage (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:357:11)
+    at Parser.handlePacket (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:186:21)
+    at Parser.parse (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:101:30)
+    at Socket.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at Socket.EventEmitter.emit (domain.js:482:12)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23) {
+  length: 334,
+  severity: 'ERROR',
+  code: '23502',
+  detail: 'Failing row contains (null, mocktest.associatee7817984-1796-43a4-8024-00c60a22e2e4@mock.com, tester, him/his, run, burgers, fun, art, C, testing, f, f).',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'project_3_profile_service',
+  table: 'profiles',
+  column: 'auth0_user_id',
+  dataType: undefined,
+  constraint: undefined,
+  file: 'execMain.c',
+  line: '2035',
+  routine: 'ExecConstraints'
+}
+[2020-08-26T01:04:27.085] [ERROR] error - error: duplicate key value violates unique constraint "profiles_email_key"
+    at Parser.parseErrorMessage (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:357:11)
+    at Parser.handlePacket (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:186:21)
+    at Parser.parse (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\parser.ts:101:30)
+    at Socket.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\node_modules\pg-protocol\src\index.ts:7:48)
+    at Socket.emit (events.js:315:20)
+    at Socket.EventEmitter.emit (domain.js:482:12)
+    at addChunk (_stream_readable.js:295:12)
+    at readableAddChunk (_stream_readable.js:271:9)
+    at Socket.Readable.push (_stream_readable.js:212:10)
+    at TCP.onStreamRead (internal/stream_base_commons.js:186:23) {
+  length: 280,
+  severity: 'ERROR',
+  code: '23505',
+  detail: 'Key (email)=(mock6.associate765d51ed-09d7-474c-85cd-7379de5475da@mock.com) already exists.',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: 'project_3_profile_service',
+  table: 'profiles',
+  column: undefined,
+  dataType: undefined,
+  constraint: 'profiles_email_key',
+  file: 'nbtinsert.c',
+  line: '534',
+  routine: '_bt_check_unique'
+}
+[2020-08-26T01:09:20.801] [ERROR] error - Error: User profile not found
+    at ProfileNotFoundError.HttpError [as constructor] (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\http-error.ts:4:9)
+    at new ProfileNotFoundError (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\errors\profile-not-found-error.ts:5:9)
+    at Object.<anonymous> (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:61:13)
+    at step (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:33:23)
+    at Object.next (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:14:53)
+    at fulfilled (C:\Users\LiteraryGamerGirlT\Project-3-profileservice\src\daos\SQL\profile-dao.ts:5:58)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+  statusCode: 404
+}

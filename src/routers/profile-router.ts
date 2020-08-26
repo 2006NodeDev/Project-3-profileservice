@@ -22,11 +22,7 @@ export const profileRouter = express.Router();
 //no middleware set up yet
 
 //get all profiles
-
-
-profileRouter.get(
-  "/",
-  async (req: Request, res: Response, next: NextFunction) => {
+profileRouter.get("/", async (req:Request, res: Response, next: NextFunction)=>{
     try {
       let allProfiles = await getAllProfilesService();
       res.json(allProfiles);
@@ -98,7 +94,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
     favFoods,
     specialTrait,
     degree,
-    favLangauge,
+    favLanguage,
     relevantSkills,
     introvert,
     studyGroup
@@ -121,7 +117,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
     favFoods,
     specialTrait,
     degree,
-    favLangauge,
+    favLanguage,
     relevantSkills,
     introvert,
     studyGroup,
@@ -134,7 +130,7 @@ profileRouter.patch('/:auth0Id', async (req: Request, res: Response, next: NextF
   updatedProfile.favFoods = favFoods || undefined;
   updatedProfile.specialTrait = specialTrait || undefined;
   updatedProfile.degree = degree || undefined;
-  updatedProfile.favLangauge = favLangauge || undefined;
+  updatedProfile.favLanguage = favLanguage || undefined;
   updatedProfile.relevantSkills = relevantSkills || undefined;
   updatedProfile.introvert = introvert || undefined;
   updatedProfile.studyGroup = studyGroup || undefined;
@@ -167,7 +163,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
     favFoods,
     specialTrait,
     degree,
-    favLangauge,
+    favLanguage,
     relevantSkills,
     introvert,
     studyGroup,
@@ -185,7 +181,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
     favFoods,
     specialTrait,
     degree,
-    favLangauge,
+    favLanguage,
     relevantSkills,
     introvert,
     studyGroup,
@@ -196,7 +192,7 @@ profileRouter.post('/createprofile', async (req: Request, res: Response, next: N
   createProfile.favFoods = favFoods;
   createProfile.specialTrait = specialTrait;
   createProfile.degree = degree;
-  createProfile.favLangauge = favLangauge;
+  createProfile.favLanguage = favLanguage;
   createProfile.relevantSkills = relevantSkills;
   createProfile.introvert = introvert;
   createProfile.studyGroup = studyGroup;
